@@ -1,0 +1,32 @@
+{%extends "base.html"%}
+
+{%block content%}
+<link rel="stylesheet" href="/static/css/visualizar.css">
+
+{% if page == 'visualizar' %}
+<main>
+    <div class="content">
+        <h4>Clique em uma das opções abaixo para visualizar os dados:</h4>
+        <div class="visualiza">
+            <a href="/buscaPautorizador">Autorizador</a>
+            <a href="/buscaPbeneficiado">Beneficiado</a>
+            <a href="/buscaPfarmacia">Farmacia</a>
+            <a href="/buscaPrefeitura">Prefeitura</a>
+        </div>
+    </div>
+</main>
+{% elif page == 'cadastros' %}
+<main>
+    <div class="content">
+        <h4>Clique em uma das opções abaixo para visualizar os dados:</h4>
+        <div class="visualiza">
+            <a href="/cadastro_Pbeneficiado">Beneficiado</a>
+            <a href="/cadastro">Geral</a>
+        </div>
+    </div>
+</main>
+{% endif %}
+
+<script src="/static/js/flashtemporario.js"></script>
+        
+{%endblock%}

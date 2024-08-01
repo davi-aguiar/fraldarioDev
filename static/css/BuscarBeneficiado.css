@@ -1,0 +1,464 @@
+/* Config Geral */
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Poppins;
+  transition: all 0.2s;
+}
+body {
+  background-color: #b7b6b6;
+}
+/* variaveis */
+
+:root {
+  --shadow-color: rgba(0, 0, 0, 0.25);
+}
+
+/* div pai */
+
+.corpo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-grow: 1;
+}
+
+/* sidebar bootstrap */
+
+#mensagem-flash,
+#flash-message {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 9999;
+  font-family: inter;
+  padding: 15px;
+  border-radius: 10px;
+  position: absolute;
+  top: 30px;
+  left: 42vw;
+
+  transition: opacity 1s ease-out, border-width 5s linear;
+}
+.wrapper {
+  display: flex;
+  position: static;
+  min-height: 100vh;
+  width: auto;
+  overflow: hidden;
+  background: #b7b6b6;
+  /* border: 1px solid red; */
+}
+
+#sidebar {
+  width: 70px;
+  min-width: 70px;
+  z-index: 1000;
+  transition: all 0.25s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+}
+
+#sidebar.expand {
+  width: 260px;
+  min-width: 260px;
+}
+
+.toggle-btn {
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+  padding: 1rem 1.5rem;
+}
+
+.toggle-btn {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.sidebar-logo {
+  margin: auto 0;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar-logo h3 {
+  color: #fff;
+  font-size: larger;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+#sidebar:not(.expand) .sidebar-logo,
+#sidebar:not(.expand) a.sidebar-link span {
+  display: none;
+}
+
+.sidebar-nav {
+  padding: 2rem 0;
+  flex: 1 1 auto;
+  list-style: none;
+}
+
+a.sidebar-link {
+  padding: 0.625rem 1.625rem;
+  color: #fff;
+  display: block;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  padding: 20px 25px;
+}
+
+a.sidebar-link span {
+  margin-left: 15px;
+}
+
+.sidebar-link button {
+  font-size: 0.9rem;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+}
+
+a.sidebar-link:hover {
+  background-color: rgba(255, 255, 255, 0.075);
+  border-left: 3px solid #3b7ddd;
+}
+
+.sidebar-item {
+  position: relative;
+}
+
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
+  position: absolute;
+  top: 0;
+  left: 70px;
+  background-color: #0e2238;
+  padding: 0;
+  min-width: 15rem;
+  display: none;
+}
+
+#sidebar:not(.expand) sidebar-item:hover .has-dropdown + .sidebar-dropdown {
+  display: block;
+  max-height: 15em;
+  width: 100%;
+  opacity: 1;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
+  border: 1px solid;
+  border-width: 0 0.075rem 0.075rem 0;
+  content: "";
+  display: inline-block;
+  padding: 2px;
+  position: absolute;
+  right: 1.5rem;
+  top: 1.4rem;
+  transform: rotate(45deg);
+  transition: all 0.2s ease-out;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+  transform: rotate(-135deg);
+  transition: all 0.2s ease-out;
+}
+
+/* Content */
+.content {
+  background: #b7b6b6;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: auto;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  gap: 5.2em;
+  text-align: left;
+}
+
+.content p {
+  font-size: 20px;
+  font-weight: 400;
+  color: #000000;
+  line-height: 1.5;
+}
+.voltar {
+  display: flex;
+  position: absolute;
+  top: 20px;
+  width: 100px;
+}
+
+.voltar button {
+  background: #0e223e;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 30px;
+  margin-left: 15px;
+}
+
+input {
+  width: 100%; /* Usa 100% da largura do container para garantir responsividade */
+  max-width: 250px; /* Limita a largura máxima para manter a estética */
+  border: 1px solid #ccc; /* Adiciona uma borda leve para melhor definição */
+  border-radius: 5px; /* Bordas arredondadas para uma aparência moderna */
+  padding: 10px; /* Padding interno para melhorar a legibilidade do texto inserido */
+  box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
+  transition: border-color 0.3s ease; /* Suaviza a transição da cor da borda */
+  position: absolute;
+}
+/* Estilos para remover setas em campos de input type number (no caso, estamos usando type text) */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.invalid-feedback {
+  color: #ff0000; /* Cor para feedback de erro */
+}
+
+/* media queries */
+
+@media (max-width: 450px) {
+  .wrapper {
+    display: flex;
+    position: absolute;
+    left: 0;
+    min-height: 100vh;
+    width: 300px;
+    overflow: hidden;
+  }
+  .content {
+    position: relative;
+    left: 10%;
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+  }
+  .content h1 {
+    font-size: 30px;
+  }
+  span#farm {
+    font-size: 35px;
+  }
+
+  .content h3 {
+    font-size: 20px;
+  }
+
+  .content p {
+    font-size: 15px;
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    margin-left: 125px;
+  }
+}
+
+.flash-success,
+.flashMessage {
+  position: fixed;
+  display: flex;
+  left: 3%;
+  top: 14%;
+  padding: 9px 25px 9px 15px;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+  filter: drop-shadow(2px 2px 1px #00000060);
+  border-left: 7px solid #3498db;
+  background-color: #fff;
+  color: #121212;
+  font-weight: 500;
+  font-size: 1rem;
+  width: 25%;
+  align-items: center;
+  z-index: 10000;
+}
+
+.flash-error,
+.flash-info,
+.flash-warning {
+  position: fixed;
+  left: 50%;
+  top: 10%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  border-radius: 20px;
+  filter: drop-shadow(2px 2px 1px #00000040);
+  font-weight: 500;
+  color: #fff;
+}
+
+.flashMessage i {
+  font-size: 1.4rem;
+  color: #3498db;
+  margin-right: 10px;
+}
+
+.flash-success i {
+  font-size: 1.4rem;
+  color: #4caf50;
+}
+
+.flash-info {
+  background-color: #3498db;
+}
+
+.flash-warning {
+  background-color: #f39c12;
+}
+
+.flash-error {
+  background-color: #e74c3c;
+}
+
+/* Sidebar básica - ajuste para comportamento off-canvas em telas pequenas */
+@media (max-width: 768px) {
+  #sidebar {
+    width: 250px; /* Define a largura da sidebar para ser suficiente para links e botões */
+    position: fixed;
+    left: -250px; /* Inicialmente posiciona a sidebar fora da tela */
+    top: 0;
+    height: 100vh; /* Garante que a sidebar ocupe a altura total da tela */
+    background-color: #000; /* Cor de fundo para a sidebar */
+    z-index: 2000; /* Assegura que a sidebar esteja acima do conteúdo principal */
+    transition: left 0.3s ease; /* Suaviza a transição para uma experiência mais agradável */
+  }
+
+  #sidebar.expand {
+    left: 0; /* Move a sidebar para dentro da tela quando expandida */
+  }
+
+  .toggle-btn {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    z-index: 2001; /* Garante que o botão esteja visível acima da sidebar */
+  }
+
+  .content {
+    margin-left: 0;
+    padding-top: 60px; /* Adiciona um espaço no topo quando a sidebar está expandida */
+    width: 100%; /* Utiliza a largura total disponível */
+  }
+}
+
+@media (max-width: 768px) {
+  input,
+  .flash-success,
+  .flashMessage,
+  .flash-error,
+  .flash-info,
+  .flash-warning {
+    width: 90%;
+    margin: 10px auto;
+    font-size: 12px;
+  }
+
+  .flash-success,
+  .flash-error,
+  .flash-info,
+  .flash-warning {
+    padding: 15px;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  button,
+  a {
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content,
+  .footer,
+  button,
+  a {
+    padding: 10px; /* Aumenta o padding para toques mais fáceis */
+    font-size: 14px; /* Aumenta o tamanho da fonte para leitura fácil */
+  }
+
+  input,
+  .flash-success,
+  .flashMessage,
+  .flash-error,
+  .flash-info,
+  .flash-warning {
+    width: 90%; /* Ajusta a largura para a maioria dos dispositivos móveis */
+    margin: 10px auto; /* Centraliza e adiciona margem para clareza */
+  }
+
+  .flashMessage,
+  .flash-success,
+  .flash-error,
+  .flash-info,
+  .flash-warning {
+    padding: 15px; /* Aumenta o padding para toques mais fáceis */
+    border-radius: 10px; /* Suaviza as bordas para uma aparência mais moderna */
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .voltar {
+    width: 100%; /* Garante que o botão ocupe a largura total para facilitar o acesso */
+    margin-top: 20px; /* Adiciona espaço acima do botão de voltar */
+    display: flex;
+    justify-content: center; /* Centraliza o botão horizontalmente */
+  }
+}
+
+@media (max-width: 768px) {
+  input {
+    margin: 10px 0; /* Adiciona margem vertical para espaçamento em layouts compactos */
+    font-size: 14px; /* Reduz o tamanho da fonte para ajustar em espaços menores */
+  }
+}
+
+@media (max-width: 480px) {
+  input {
+    padding: 6px 10px; /* Reduz o padding para economizar espaço */
+    font-size: 12px; /* Tamanho de fonte menor para telas muito pequenas */
+  }
+}

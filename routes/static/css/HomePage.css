@@ -1,0 +1,634 @@
+/* variaveis */
+
+
+
+
+
+
+
+
+
+
+/* variaveis end */
+
+
+
+/* config gerais */
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Poppins;
+  color: #000;
+}
+
+
+
+
+
+
+/* config gerais end */
+
+
+
+
+
+
+
+
+/* capa start */
+
+.main .capa {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url('/static/fotos/homepage/capa-inicial.jpg') no-repeat center -60px/cover;
+  display: flex;
+  align-items:center;
+  justify-content: justify;
+  text-align:center;
+  color: #fff;
+  flex-wrap: wrap;
+  
+  .content {
+    position: relative;
+    left: 50px;
+    
+  }
+
+}
+
+.buttonsnav {
+  z-index: 3;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  flex-wrap: wrap;
+  
+  .btn {
+    padding: 0.8em 1em;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1em;
+    transition: background 0.3s;
+    z-index: 2;
+  }
+  
+  .btn.primary {
+    background-color: transparent;
+    border : 1px solid
+  }
+  
+  .btn.primary:hover {
+    background-color: #C3F73A;
+  }
+  
+  .btn.secondary {
+    background-color: #17a2b8;
+  }
+  
+  .btn.secondary:hover {
+    background-color: #117a8b;
+  }
+
+
+
+}
+
+
+.arrowdown {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2em;
+  color: #fff;
+  cursor: pointer;
+  z-index: 5;
+  animation: arrowdown 2s ease-in-out infinite alternate;
+
+  i {
+    color: #fff;
+    border: 1px solid rgb(255, 255, 255);
+    padding: 1px 6px;
+    border-radius: 100%
+
+  }
+}
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.493); /* Ajuste a opacidade conforme necessário */
+  z-index: 2;
+}
+
+
+
+.capa-texto {
+  
+
+  position: relative;
+  z-index: 2;
+  text-align: left;
+  max-width: 800px; /* Ajuste conforme necessário */
+  margin: 0 auto;
+  
+
+  h1 {
+    font-size: 3em;
+    color: #FFF;
+    margin-bottom: 0.5em;
+  }
+
+  p{
+    color: #FFF;
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+  }
+
+
+}
+
+.buttons {
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap ;
+  
+  text-align: left;
+}
+
+.btn {
+  padding: 0.8em 2em;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1em;
+  transition: background 0.3s;
+  z-index: 2;
+}
+
+.btn.primary {
+  background-color: transparent;
+  border : 1px solid
+}
+
+.btn.primary:hover {
+  background-color: #C3F73A;
+}
+
+.btn.secondary {
+  background-color: #17a2b8;
+}
+
+.btn.secondary:hover {
+  background-color: #117a8b;
+}
+
+
+
+
+
+
+/* capa end */
+
+
+
+/* cards 1 */
+
+.cardfundo {
+  
+  font-family: 'Arial', sans-serif;
+  background-color: #0B388A;/* Cor de fundo semelhante à da imagem */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.card {
+  
+  background-color: #ffffff; /* Cor de fundo do card */
+  border-radius: 20px; /* Bordas arredondadas */
+  padding: 50px 40px;
+  max-width: 900px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra do card */
+  text-align: left;
+  max-height: 300px;
+  
+  min-height: 200px;
+}
+
+.card h2 {
+    font-size: 2rem;
+    color: #000000; /* Cor do texto do título */
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+.beneficiarios {
+  display: flex;
+  margin-top:  45px;
+  justify-content: space-between;
+}
+
+.beneficiario {
+  padding: 15px;
+  margin: 0 15px;
+    max-width: 400px;
+}
+
+.beneficiario h3 {
+    font-size: 1.5rem;
+    text-align: left;
+    color: #2c2f48; /* Cor do texto dos subtítulos */
+}
+
+.beneficiario p {
+    font-size: 1rem;
+    max-width: 380px;
+    text-align:justify;
+    color: #555555; /* Cor do texto dos parágrafos */
+  margin-top: 10px;
+}
+
+
+
+/* cards 1 end */
+
+
+/* objetivos */
+
+.objective-section {
+  background-color: #ffffff;
+  overflow: hidden;
+  height: 80vh;
+  display: flex;
+  
+  justify-content: center;
+  align-items: flex-start;
+  padding: 25px 25px;
+  flex-wrap: wrap;
+  
+}
+
+.image-container img {
+  width: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.content-container {
+  margin-left: 5%;
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ 
+}
+
+.content-container h2 {
+  font-size: 2rem;
+  color: #2c2f48; /* Cor do título */
+  font-weight: 700;
+  margin-bottom: 60px;
+  text-align: left;
+}
+
+.objetivo {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  
+
+  .objective-item {
+
+
+    .objective-number1 {
+      margin-top: 2%;
+      width: 35%;
+      background-color: #d1e8e2;
+      border: 1px solid #abbcb8;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+     
+      font-size: 1.2rem;
+      color: #2c2f48;
+      margin-right: 10px;
+    }
+    .objective-number2 {
+      margin-top: 2%;
+      width: 23%;
+      background-color: #d1e8e2;
+      border: 1px solid #abbcb8;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+     
+      font-size: 1.2rem;
+      color: #2c2f48;
+      margin-right: 10px;
+    }
+  }
+}
+
+.objective-list {
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.objective-item {
+  display: flex;
+  align-items: self-start;
+  justify-content: center;
+  text-align: justify;
+  width: 300px; /* Largura fixa para cada item */
+}
+
+.item2 {
+  width: 87.5%;
+}
+
+.objective-number{
+  margin-top: 1%;
+  background-color: #d1e8e2;
+  border-radius: 5px;
+  width: 6%;
+  display: flex;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #2c2f48;
+  margin-right: 10px;
+  border: 1px solid #abbcb8;
+}
+
+.objective-text h3 {
+  font-size: 1.2rem;
+  color: #2c2f48; /* Cor do texto dos subtítulos */
+  margin: 0;
+}
+
+.objective-text p {
+  font-size: 1rem;
+  color: #555555; /* Cor do texto dos parágrafos */
+  margin: 5px 0 0 0;
+}
+
+
+/* objetivos end */
+
+
+/* logistica  start*/
+
+.logistica {
+  display: flex;
+   flex-direction: column;
+   align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background: url('/static/fotos/homepage/processo\ img.jpg') no-repeat center -60px/cover;
+  }
+  
+  .overlayy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.493); /* Ajuste a opacidade conforme necessário */
+  z-index: 0;
+  
+  
+  }
+  
+  
+  .logistica h2 {
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: #fff;
+    z-index: 5 ;
+  }
+  
+  .logistica-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .etapa {
+    max-width: 300px;
+    
+    
+    text-align: center;
+    position: relative;
+  }
+  
+  .etapa-numero {
+    position: relative;
+    background-color: #E0E8E9;
+    color: #000000;
+   
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 20% 50%);
+  }
+  
+  .etapa h3 {
+    font-size: 1.5em;
+    margin: 20px 0;
+    color: #fff;
+  }
+  
+  .etapa p {
+    font-size: 1em;
+    color: #fff;
+  }
+  
+  /* logistica end */
+  
+
+
+
+/* parcerias start */
+
+
+.parcerias {
+  background-color: #0B388A;
+  text-align: center;
+  padding: 50px 20px;
+ 
+}
+
+.parcerias h2 {
+  font-size: 2em;
+  margin-bottom: 30px;
+  color: #fff;
+  position: relative; /* This is needed to position the ::after element relative to the h2 */
+}
+
+.parcerias h2::after {
+  content: "";
+  display: block;
+  width: 22%; /* Adjust the width as needed */
+  height: 2px; /* Adjust the height (thickness) of the line as needed */
+  background-color: #fff; /* Color of the line */
+  position: absolute;
+  bottom: 1px;
+  left: 39%; /* Adjust the position of the line */
+   /* Center the line under the h2 */
+}
+
+.parcerias-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.parceria {
+  max-width: 300px;
+  margin: 10px;
+}
+
+.parceria h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.parceria p {
+  color: #fff;
+  font-size: 1em;
+}
+
+
+
+/* parcerias end */
+
+
+/* footer start */
+
+
+.footer {
+ 
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  
+  .subFooter {
+    width: 90%;
+    justify-content: center;
+    display: flex;
+    border-top: 1px solid #00000083;
+    padding: 50px 0px 50px 0px;
+    flex-direction: column;
+    line-height: 80px;
+  }
+  
+  .textFooter {
+    margin: 0 auto;
+  }
+  
+  .ulFooterText {
+    list-style: none;
+    display: flex;
+    margin: 0 auto;
+  }
+  
+  .ulFooterText li {
+    margin: 0 30px;
+  }
+  
+  .ulFooterText li a { 
+    text-decoration: none;
+    color: var(--color-second-font);
+    font-weight: 300;
+    font-size: 1.1rem;
+  }
+  
+  .ulFooterIcons {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    list-style: none;
+    display: flex;
+   
+  }
+  
+  .ulFooterIcons li {
+    margin: 0 25px;
+  }
+  
+  .ulFooterIcons li a {
+    padding: 10px 15px;
+    border-radius: 50px;
+    color: var(--color-second-font);
+    background-color: var(--bg-dark);
+  }
+  
+  .ulFooterIcons li a { 
+    font-size: 2rem;
+  }
+  .textDescriptionFooter {
+    margin: 0 auto;
+  }
+}
+
+
+
+
+/* footer end */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* keyframes */
+@keyframes arrowdown {
+  0% {
+    bottom: 30px ;
+  }
+  100% {
+   bottom: 20px;
+  }
+}
+
+/* keyframes end */

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraldário</title>
+    <link rel="shortcut icon" href="fotos/anonimo.png">
+    <link rel="stylesheet" href="static/css/.css">
+    
+    <link rel="stylesheet" href="/static/css/flashmessage.css">
+    <script src="/static/js/flashtemporario.js"></script>
+
+</head>
+<body>
+    <button onclick="voltar()">Voltar</button>
+    
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-message" id="mensagem-flash">
+                    <p>{{ messages[0] }}</p>
+                    <button onclick="fecharMensagem()">OK</button>  
+                </div>
+            {% endif %}
+        {% endwith %}
+    
+    <div id="container">       
+        <form action="/cadastroAutorizador.html" method="POST">
+            <form>
+            <h1>Beneficiado</h1>        
+            <div class="input-wrapper">
+                <label for="login" id="textoUm">Nome: </label>
+                <input type="text" name="username" id="username" placeholder="Cadastre o nome do beneficiado" required>
+               
+            </div>
+            <div>
+            <label for="login" id="textoUm">CPF: </label>
+            <input type="text" name="username" id="username" placeholder="Cadastre o CPF do beneficiado" required>
+            </div>
+            <div>
+                <label for="login" id="textoUm">Cartão do SUS: </label>
+                <input type="text" name="username" id="username" placeholder="Cadastre o cartão do SUS do beneficiado" required>
+            </div>
+            <div>
+                <label for="login" id="textoUm">Nome da pessoa autorizada: </label>
+                <input type="text" name="username" id="username" placeholder="Cadastre o nome do responsável" required>
+            </div>
+            <div>
+                <label for="login" id="textoUm">CPF da pessoa autorizada: </label>
+                <input type="text" name="username" id="username" placeholder="Cadastre CPF do responsável" required>
+            </div>
+            <div>
+                <label for="login" id="textoUm">Quantidade liberada: </label>
+                <input type="text" name="username" id="username" placeholder="Cadastre a quantidade de fraldas liberadas" required>
+            </div>
+            <div>
+                <label for="login" id="textoUm">Tamanho liberado: </label>
+                <input type="text" name="username" id="username" placeholder="Cadastre o tamanho da fralda" required>
+            </div>
+            <div>
+                <label for="login" id="textoUm">Motivo da liberação: </label>
+                <input type="text" name="username" id="username" placeholder="Digite o motivo da liberação" required>
+            </div>
+       
+        <form>
+           <h1>Vigencia</h1>
+           <div>
+            <label for="login" id="textoUm">Data de inicio: </label>
+            <input type="date" name="username" id="username" required>
+            </div>
+            <div>
+                <label for="login" id="textoUm">Validade: </label>
+                <input type="radio" name="username" id="username" required>
+            </div>
+        </form>
+        <form>
+            <h1>Anexo</h1>
+            <div>
+             <label for="login" id="textoUm">Data de inicio: </label>
+             <input type="file" name="username" id="username" required>
+             </div>
+             <div>
+                 <label for="login" id="textoUm">Licitação: </label>
+                 <input type="file" name="username" id="username" required>
+             </div>
+         </form>
+         <div class="button">
+            <button type="submit" name="buttonEnvio" id="buttonEnvio">Enviar</button>
+        </div>  
+        </form>
+    </form>
+    </div> 
+    <script src="/static/js/cadastroAutorizador.js"></script>  
+</body>
+</html>

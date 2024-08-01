@@ -1,0 +1,144 @@
+/* Estilos para o corpo da página */
+body {
+  font-family: 'Poppins', sans-serif; /* Fonte Poppins para todo o corpo */
+  background: linear-gradient(to top, #003366, #0288d1); /* Gradiente do azul escuro (#003366) para o azul claro (#0288d1) */
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos para botões secundários */
+.btn-secondary {
+  background-color: #6c757d; /* Cor de fundo padrão */
+  border-color: #6c757d; /* Cor da borda */
+  color: #ffffff; /* Texto branco */
+  padding: 10px 20px; /* Aumento do padding para melhor usabilidade */
+  border-radius: 5px; /* Borda arredondada */
+  font-weight: 500;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s; /* Transições suaves */
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268; /* Cor mais escura ao passar o mouse */
+  border-color: #5a6268; /* Cor da borda mais escura */
+  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+}
+
+.btn-secondary:focus {
+  outline: none; /* Remove o contorno padrão ao focar */
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Sombra ao focar */
+}
+
+/* Estilo para o container principal */
+.container {
+  background-color: #ffffff; /* Fundo branco */
+  padding: 30px;
+  border-radius: 10px; /* Borda arredondada */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  margin-top: 30px;
+}
+
+/* Título da página */
+h1 {
+  color: #3498db; /* Azul do tema */
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* Botões de ação */
+.btn-primary {
+  background-color: #3498db; /* Azul do tema */
+  border-color: #3498db; /* Azul do tema */
+  color: #ffffff; /* Texto branco */
+  padding: 10px 20px; /* Aumento do padding para melhor usabilidade */
+  border-radius: 5px; /* Bordas arredondadas */
+  font-weight: 500;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s; /* Transições suaves */
+}
+
+.btn-primary:hover {
+  background-color: #2c81ba; /* Azul mais escuro ao passar o mouse */
+  border-color: #2c81ba; /* Azul mais escuro ao passar o mouse */
+  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+}
+
+/* Filtros e botões */
+#filters {
+  margin-bottom: 30px;
+}
+
+/* Estilo para os campos de filtro */
+.form-label {
+  font-weight: 500;
+}
+
+/* Campos de entrada e seleção */
+.form-select,
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ced4da; /* Cinza claro */
+  padding: 10px; /* Adiciona espaço interno */
+  transition: border-color 0.3s; /* Transição suave para borda */
+}
+
+.form-select:focus,
+.form-control:focus {
+  border-color: #3498db; /* Azul do tema ao focar */
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Sombra ao focar */
+}
+
+/* Tabela */
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto; /* Permite rolagem horizontal se necessário */
+}
+
+.table {
+  width: 100%;
+  background-color: #ffffff; /* Fundo branco */
+  border-collapse: collapse; /* Colapso das bordas das células */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border-radius: 10px; /* Borda arredondada */
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6; /* Cor da borda das células */
+}
+
+.table th {
+  background-color: #3498db; /* Azul do tema para o cabeçalho */
+  color: #ffffff; /* Texto branco */
+  font-weight: 600;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9; /* Cor de fundo cinza claro para linhas ímpares */
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e8f6fa; /* Cor de fundo azul claro ao passar o mouse */
+  transition: background-color 0.3s; /* Transição suave */
+}
+
+.table td {
+  transition: background-color 0.3s; /* Transição suave */
+}
+
+.table td:hover {
+  background-color: #f0f8ff; /* Cor de fundo azul muito claro ao passar o mouse */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .table {
+    font-size: 14px; /* Reduzir o tamanho da fonte em telas menores */
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    font-size: 14px; /* Tamanho do botão em telas menores */
+    padding: 8px 16px; /* Ajusta o padding */
+  }
+}

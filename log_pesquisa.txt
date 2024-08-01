@@ -1,0 +1,8 @@
+Pesquisa realizada:
+- Data: 2024-05-28 10:53:04
+- CPF Pesquisado: 12312312332
+- Status: não encontrado
+Pesquisa realizada:
+- Data: 2024-05-28 10:53:21
+- CPF Pesquisado: 12312312321
+- Status: encontrado

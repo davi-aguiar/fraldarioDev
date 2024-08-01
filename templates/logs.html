@@ -1,0 +1,28 @@
+{% extends 'admin/base.html' %}
+
+{% block body %}
+<div class="container">
+  <h2>Logs do Sistema</h2>
+
+  <!-- Exibição dos logs -->
+  <pre>
+    {% for line in log_content %}
+        {{ line }} 
+    {% endfor %}
+    </pre>
+
+  <div>
+    {% if prev_page %}
+    <a href="{{ url_for('logview.index', page=prev_page) }}"
+      class="btn btn-secondary">Anterior</a>
+    {% endif %}
+    {% if next_page %}
+    <a href="{{ url_for('logview.index', page=next_page) }}"
+      class="btn btn-secondary">Próxima</a>
+    {% endif %}
+  </div>
+
+  <a href="{{ url_for('logview.download_log') }}" class="btn btn-primary">Baixar
+    Log como PDF</a>
+</div>
+{% endblock %}

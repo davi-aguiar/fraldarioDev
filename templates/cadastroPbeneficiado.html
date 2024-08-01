@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div id="mensagem-flash" class="flash-message" style="display: none;">
+    <p id="flashzin">{{ messages[0] }}</p>
+</div>
+{% endif %}
+{% endwith %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div id="mensagem-flash" class="flash-message" style="display: none;">
+    <p id="flashzin">{{ messages[0] }}</p>
+</div>
+{% endif %}
+{% endwith %}
+
+<link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="/static/css/sidebar.css">
+<script src="/static/js/flashtemporario.js"></script>
+
+<main>
+    <div class="container mt-1">
+        <form id="cpfForm" action="/cadastro_Pbeneficiado" method="POST"
+            enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h4>Cadastre o Beneficiado</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nome</label>
+                        <input type="text" name="username" id="username"
+                            class="form-control" placeholder="NOME" required
+                            value="{{ form_data.username if form_data else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cpfBeneficiado"
+                            class="form-label">CPF:</label>
+                        <input type="cpf" name="cpfBeneficiado"
+                            id="cpfBeneficiado" class="form-control"
+                            placeholder="CPF do beneficiado" maxlength="11"
+                            required
+                            value="{{ form_data.cpfBeneficiado if form_data else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cartaoSus" class="form-label">Cartão do
+                            SUS:</label>
+                        <input type="text" name="cartaoSus" id="cartaoSus"
+                            class="form-control"
+                            placeholder=" Cartão do SUS do beneficiado"
+                            maxlength="15" required
+                            value="{{ form_data.cartaoSus if form_data else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pessoaAutorizada" class="form-label">Nome da
+                            pessoa autorizada:</label>
+                        <input type="text" name="pessoaAutorizada"
+                            id="pessoaAutorizada" class="form-control"
+                            placeholder="Nome do responsável" required
+                            value="{{ form_data.pessoaAutorizada if form_data else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cpfPessoa" class="form-label">CPF da pessoa
+                            autorizada:</label>
+                        <input type="cpf" name="cpfPessoa" id="cpfPessoa"
+                            class="form-control"
+                            placeholder="CPF do responsável" maxlength="11"
+                            required
+                            value="{{ form_data.cpfPessoa if form_data else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="qntddLiberada" class="form-label">Quantidade
+                            liberada:</label>
+                        <input type="text" name="qntddLiberada"
+                            id="qntddLiberada" class="form-control"
+                            placeholder="Quantidade de fraldas liberadas"
+                            required
+                            value="{{ form_data.qntddLiberada if form_data else '' }}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="tamanhoLiberada" class="form-label">Tamanho
+                            liberado:</label><br>
+                        <select name="tamanhoLiberada" id="tamanhoLiberada"
+                            class="form-select" required>
+                            <option value="P" {% if form_data and
+                                form_data.tamanhoLiberada == 'P' %}selected{%
+                                endif %}>P</option>
+                            <option value="M" {% if form_data and
+                                form_data.tamanhoLiberada == 'M' %}selected{%
+                                endif %}>M</option>
+                            <option value="G" {% if form_data and
+                                form_data.tamanhoLiberada == 'G' %}selected{%
+                                endif %}>G</option>
+                            <option value="GG" {% if form_data and
+                                form_data.tamanhoLiberada == 'GG' %}selected{%
+                                endif %}>GG</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="motivoLiberacao" class="form-label">Motivo
+                            da liberação:</label>
+                        <input type="text" name="motivoLiberacao"
+                            id="motivoLiberacao" class="form-control"
+                            placeholder="Motivo da liberação" required
+                            value="{{ form_data.motivoLiberacao if form_data else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="marca" class="form-label">Marca da
+                            fralda</label><br>
+                        <select name="marca" id="marca" class="form-select"
+                            required>
+                            <option value="Pampers" {% if form_data and
+                                form_data.marca == 'Pampers' %}selected{% endif
+                                %}>Pampers</option>
+                            <option value="Huggies" {% if form_data and
+                                form_data.marca == 'Huggies' %}selected{% endif
+                                %}>Huggies</option>
+                            <option value="Pompom" {% if form_data and
+                                form_data.marca == 'Pompom' %}selected{% endif
+                                %}>Pompom</option>
+                            <option value="BigFral" {% if form_data and
+                                form_data.marca == 'BigFral' %}selected{% endif
+                                %}>BigFral</option>
+                            <option value="Lifree" {% if form_data and
+                                form_data.marca == 'Lifree' %}selected{% endif
+                                %}>Lifree</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dataInicio" class="form-label">Data de
+                            início:</label>
+                        <input type="date" name="dataInicio" id="dataInicio"
+                            class="form-control" readonly
+                            value="{{ form_data.dataInicio if form_data else '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="vigencia" class="form-label">Escolha a
+                            validade:</label><br>
+                        <select name="vigencia" id="vigencia"
+                            class="form-select" required>
+                            <option value="3" {% if form_data and
+                                form_data.vigencia == '3' %}selected{% endif
+                                %}>3 meses</option>
+                            <option value="6" {% if form_data and
+                                form_data.vigencia == '6' %}selected{% endif
+                                %}>6 meses</option>
+                            <option value="9" {% if form_data and
+                                form_data.vigencia == '9' %}selected{% endif
+                                %}>9 meses</option>
+                            <option value="12" {% if form_data and
+                                form_data.vigencia == '12' %}selected{% endif
+                                %}>12 meses</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="documento" class="form-label">Insira o
+                            documento:</label>
+                        <input type="file" name="documento" id="documento"
+                            class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col text-center" id="btnsend">
+                    <button type="submit" name="buttonEnvio" id="buttonEnvio"
+                        class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>
+<script src="/static/js/cadastroAutorizador.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+<script src="/static/js/selecionarbotao.js"></script>
+<link rel="stylesheet" href="/static/css/flashmessage.css">
+<link rel="stylesheet" href="/static/css/cadastroAutorizador.css">
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'admin/base.html' %}
+{% block body %}
+<div class="row">
+  <div class="col-lg-4 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total de Usuários</h5>
+        <p class="card-text">{{ user_count }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Usuários Ativos</h5>
+        <p class="card-text">{{ active_user_count }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Admins</h5>
+        <p class="card-text">{{ admin_count }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Uso de CPU</h5>
+        <div id="cpu-usage-chart"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Uso de Memória</h5>
+        <div id="memory-usage-chart"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
+    var cpuUsageChart = {
+        x: [],
+        y: [],
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'Uso de CPU (%)',
+        line: {shape: 'spline'}
+    };
+
+    var memoryUsageChart = {
+        x: [],
+        y: [],
+        type: 'scatter',
+        mode: 'lines+markers',
+        name: 'Uso de Memória (MB)',
+        line: {shape: 'spline'}
+    };
+
+    var layoutCPU = {
+        title: 'Uso de CPU (%)',
+        xaxis: {title: 'Tempo'},
+        yaxis: {title: 'Porcentagem (%)', range: [0, 100]}
+    };
+
+    var layoutMemory = {
+        title: 'Uso de Memória (MB)',
+        xaxis: {title: 'Tempo'},
+        yaxis: {title: 'Memória (MB)'}
+    };
+
+    Plotly.newPlot('cpu-usage-chart', [cpuUsageChart], layoutCPU);
+    Plotly.newPlot('memory-usage-chart', [memoryUsageChart], layoutMemory);
+
+    socket.on('update_data', function(data) {
+        var currentTime = new Date().toLocaleTimeString();
+
+        cpuUsageChart.x.push(currentTime);
+        cpuUsageChart.y.push(data.cpu_usage);
+        memoryUsageChart.x.push(currentTime);
+        memoryUsageChart.y.push(data.memory_usage);
+
+        Plotly.update('cpu-usage-chart', {x: [cpuUsageChart.x], y: [cpuUsageChart.y]}, layoutCPU);
+        Plotly.update('memory-usage-chart', {x: [memoryUsageChart.x], y: [memoryUsageChart.y]}, layoutMemory);
+    });
+
+    socket.emit('request_data');
+</script>
+{% endblock %}

@@ -1,0 +1,116 @@
+{%extends "base.html"%}
+
+{%block content%}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="flash-message" id="mensagem-flash" style="display: none;">
+  <p id="flashzin">{{ messages[0] }}</p>
+  
+</div>
+{% endif %}
+{% endwith %}
+
+<link rel="stylesheet" href="/static/css/geraDocumento.css">
+
+    <main>
+     
+    <div class="content">
+      <div id="beneficiadoInfo">
+        <div class="infobenef"> <h2>Informações do Beneficiado</h2>
+
+          <p>Nome: <span>{{ beneficiado.nome_beneficiado }}</span></p>
+          <p>CPF: <span>{{ beneficiado.cpf_beneficiado }}</span></p>
+          <p>Cartão SUS: <span>{{ beneficiado.cartao_sus }}</span></p>
+          <p>Nome Autorizado: <span>{{ beneficiado.nome_autorizado }}</span></p>
+          <p>CPF Autorizado: <span>{{ beneficiado.cpf_autorizado }}</span></p>
+          <p>Data Início: <span>{{ beneficiado.data_inicio }}</span></p>
+          <p>Quantidade Liberada: <span>{{ beneficiado.quantidade_liberada
+              }}</span></p>
+          <p>Quantidade Restante: <span>{{ quantidade_restante }}</span></p>
+          <p>Quantidade Coletada: <span>{{ quantidade_pego }}</span></p>
+          <p>Tamanho Liberado: <span>{{ beneficiado.tamanho_liberado
+              }}</span></p>
+          <p>Motivo Liberação: <span>{{ beneficiado.motivo_liberacao
+              }}</span></p>
+          <p>Marca liberada: <span>{{ beneficiado.marca_fralda }}</span></p>
+          <p>Validade em Meses: <span>{{ beneficiado.validade_meses
+              }}</span></p>
+          <p>Data e horario atual: <span>{{ hora_atual_str }}</span></p>
+        </div>
+        <div class="dados">
+          <h2>Insira os Documentos</h2>
+          <form action="/salvaDocumento" enctype="multipart/form-data"
+            method="POST">
+            <div class="input-wrapper">
+              <label for="documentoBeneficiado" id="textoUm"><p id="benef">
+                  Beneficiado:</p></label>
+              <input type="file" name="documentoBeneficiado"
+                id="documentoBeneficiado">
+            </div>
+
+            <div style="text-align: center; align-items: center;">
+              <button class=" buttonns" type="submit" >Anexar</button>
+            </div>
+
+          </form>
+
+        </div>
+        <div>
+          <div class="popup" id="popup">
+            <h2>Arquivos do Beneficiado:</h2>
+            <ul id="file-list"></ul>
+          </div>
+          <button class=" buttonns" onclick="togglePopup()">Listar Arquivos</button>
+
+          <div class="overlay" id="overlay" onclick="hidePopup()"></div>
+          <div class="pdf-container">
+            <embed id="pdf-viewer" src type="application/pdf" width="100%"
+              height="100%">
+          </div>
+        </div>
+
+        <div class="assinatura" hidden>
+          <p>Assinatura do responsavel:</p>
+          <p>Assinatura do farmaceutico:</p>
+        </div>
+
+        <!-- Campos do formulário aqui -->
+        
+      </div>
+      <button class="gerarpdf buttonns" onclick="openPdfInNewTab()">Gerar
+        PDF</button>
+    </div>
+    </main>
+    
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
+    <script src="/static/js/farmacia.js"></script>
+    <script src="/static/js/farmacia2.js"></script>
+    <script>
+      // Adicionar um listener para o evento de fechar a página
+      window.addEventListener('unload', function () {
+        // Fazer uma requisição AJAX para realizar o logout
+        $.ajax({
+          url: '/logout', // Endpoint de logout no Flask
+          type: 'GET', // Método GET (ou POST, dependendo da sua configuração)
+          async: false, // Síncrono para garantir que a requisição seja concluída antes do redirecionamento
+          success: function () {
+            console.log('Logout realizado com sucesso ao recarregar a página.');
+          },
+          error: function () {
+            console.error('Erro ao tentar fazer logout ao recarregar a página.');
+          }
+        });
+      });
+    </script>
+
+{%endblock%}

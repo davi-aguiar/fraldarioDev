@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- links font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+            rel="stylesheet">
+        <!-- poppins end -->
+        <!-- bootstrap icons -->
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+        <!-- bootstrap icons end -->
+        <title>Easy Diaper</title>
+        <link rel="stylesheet" href="/static/css/homepage.css">
+        <link rel="stylesheet" href="/static/css/splash.css">
+        <link rel="shortcut icon" href="/static/fotos/anonimo.png"
+            type="image/x-icon">
+    </head>
+    <body>
+
+        <div id="splash-screen">
+            <img src="/static/fotos/easy diaper logo.png" alt="Easy Diaper Logo"
+                id="splash-logo">
+        </div>
+
+        <div vw class="enabled">
+            <div vw-access-button class="active"></div>
+            <div vw-plugin-wrapper>
+                <div class="vw-plugin-top-wrapper"></div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="capa"
+                style="background: url('{{ url_for('static', filename='uploads/' ~ capa) }}') no-repeat center -60px/cover;">
+                <div class="buttonsnav">
+                    <a href="/LoginInicial" class="btn secondary">Login</a>
+                </div>
+                <div class="arrowdown">
+                    <i class="bi bi-arrow-down"></i>
+                </div>
+                <div class="overlay"></div>
+                <div class="content">
+                    <div class="capa-texto">
+                        <h1>{{ titulo }}</h1>
+                        <p>{{ descricao }}</p>
+                    </div>
+                    <div class="buttons">
+                        <a href="/faleconosco" class="btn primary">Fale
+                            Conosco</a>
+                        <a href="#saiba-mais" class="btn secondary">Saiba
+                            Mais</a>
+                    </div>
+                </div>
+            </div>
+            <div class="cardfundo">
+                <div class="card">
+                    <h2>Quem são nossos Beneficiários?</h2>
+                    <div class="beneficiarios">
+                        <div class="beneficiario">
+                            <h3>Adultos</h3>
+                            <p>{{ beneficiarios_adultos }}</p>
+                        </div>
+                        <div class="beneficiario">
+                            <h3>Crianças</h3>
+                            <p>{{ beneficiarios_criancas }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="objective-section">
+                <div class="image-container">
+                    <img src="/static/fotos/homepage/objetivo img.jpg"
+                        alt="Objetivo">
+                </div>
+                <div class="content-container">
+                    <h2>Nosso Objetivo</h2>
+                    <div class="objective-list">
+                        <div class="objetivo">
+                            <div class="objective-item">
+                                <div class="objective-number1">1</div>
+                                <div class="objective-text">
+                                    <h3>{{ objetivo1 }}</h3>
+                                    <p>Tornar as fraldas mais acessíveis para
+                                        aqueles que precisam, reduzindo
+                                        barreiras financeiras e logísticas.</p>
+                                </div>
+                            </div>
+                            <div class="objective-item">
+                                <div class="objective-number2">2</div>
+                                <div class="objective-text">
+                                    <h3>{{ objetivo2 }}</h3>
+                                    <p>Ajudar a preservar a dignidade e a
+                                        qualidade de vida dos beneficiários.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="objetivo2">
+                            <div class="objective-item item2">
+                                <div class="objective-number">3</div>
+                                <div class="objective-text">
+                                    <h3>{{ objetivo3 }}</h3>
+                                    <p>Estabelecer parcerias com instituições
+                                        locais para aprimorar a distribuição e o
+                                        apoio.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="logistica">
+                <div class="overlayy"></div>
+                <h2>Como funciona?</h2>
+                <div class="logistica-container">
+                    <div class="etapa">
+                        <div class="etapa-numero">1</div>
+                        <h3>Cadastro</h3>
+                        <p>Virá na nossa sede onde um autorizado realizará seu
+                            cadastro..</p>
+                    </div>
+                    <div class="etapa">
+                        <div class="etapa-numero">2</div>
+                        <h3>Solicitação</h3>
+                        <p>Receba os locais e localizações das instituições
+                            cadastradas.</p>
+                    </div>
+                    <div class="etapa">
+                        <div class="etapa-numero">3</div>
+                        <h3>Entrega</h3>
+                        <p>Retirada das fraldas nos locais cadastrados.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="parcerias">
+                <h2>Nossas Parcerias</h2>
+                <div class="parcerias-container">
+                    <div class="parceria">
+                        <h3>Instituições Públicas</h3>
+                        <p>Colaboramos com órgãos governamentais para ampliar o
+                            alcance do programa.</p>
+                    </div>
+                    <div class="parceria">
+                        <h3>ONGs e Organizações</h3>
+                        <p>Estabelecemos parcerias com entidades de assistência
+                            social para distribuição.</p>
+                    </div>
+                    <div class="parceria">
+                        <h3>Doadores e Patrocinadores</h3>
+                        <p>Contamos com o apoio de empresas e indivíduos
+                            generosos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="subFooter">
+                <div class="textFooter">
+                    <h2>Fraldário</h2>
+                </div>
+                <ul class="ulFooterIcons">
+                    <li><a href="#"><i class="bi bi-facebook"></i></a></li>
+                    <li><a href="https://maps.app.goo.gl/tiV4j4eVRQbc1Y866"
+                            target="_blank"><i
+                                class="bi bi-geo-alt-fill"></i></a></li>
+                </ul>
+                <div class="textDescriptionFooter">
+                    <p style="font-weight: 300;">Copyright © 2024 Secretaria
+                        Municipal de Saúde de Vitória da Conquista - All rights
+                        reserved</p>
+                </div>
+            </div>
+        </footer>
+        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+        <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+        <script src="/static/js/splash.js">
+       
+    </script>
+    </body>
+</html>

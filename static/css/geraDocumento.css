@@ -1,0 +1,56 @@
+:root {
+  --background: #fffff2;
+  --background-btn: #007bff;
+  --font-black: #000;
+  --font-white: #fff;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  background-color: var(--background);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#beneficiadoInfo {
+  display: flex;
+  gap: 50px;
+}
+
+.infobenef p {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.infobenef p span {
+  font-weight: 400;
+}
+
+.dados {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.buttonns {
+  padding: 10px 20px;
+  background-color: var(--background-btn);
+  color: var(--font-white);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}

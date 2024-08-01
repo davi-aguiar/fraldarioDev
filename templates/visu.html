@@ -1,0 +1,520 @@
+{%extends "base.html"%}
+
+
+
+{%block content %}
+
+{% if page == 'visuA' %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="/static/css/sidebar.css">
+<link rel="stylesheet" href="/static/css/visuA.css">
+
+<main>
+    <div class="content">
+        <form method="POST" class="needs-validation">
+            <h2><i class="bi bi-person-circle"></i> Informações do Beneficiado</h2>
+            <div class="row">
+                <!-- First Form -->
+                <div class="form-group col-md-6">
+                    <label for="nomeBeneficiado"><i class="bi bi-person"></i> Nome</label>
+                    <input type="text" class="form-control" id="nomeBeneficiado" name="nome_beneficiado" value="{{ beneficiado.nome_beneficiado }}" disabled>
+                </div>
+                <!-- Second Form -->
+                <div class="form-group col-md-6">
+                    <label for="cpfBeneficiado"><i class="bi bi-credit-card"></i> CPF</label>
+                    <input type="text" class="form-control" id="cpfBeneficiado" name="cpf_beneficiado" value="{{ beneficiado.cpf_beneficiado }}" disabled>
+                </div>
+            </div>
+            <!-- Second row of forms -->
+            <div class="row">
+                <!-- Third Form -->
+                <div class="form-group col-md-6">
+                    <label for="cartaoSUS"><i class="bi bi-card-checklist"></i> Cartão SUS</label>
+                    <input type="text" class="form-control" id="cartaoSUS" name="cartao_sus" value="{{ beneficiado.cartao_sus }}" disabled>
+                </div>
+                <!-- Fourth Form -->
+                <div class="form-group col-md-6">
+                    <label for="nomeAutorizado"><i class="bi bi-person-badge"></i> Nome Autorizado</label>
+                    <input type="text" class="form-control" id="nomeAutorizado" name="nome_autorizado" value="{{ beneficiado.nome_autorizado }}" disabled>
+                </div>
+            </div>
+            <!-- Third row of forms -->
+            <div class="row">
+                <!-- Fifth Form -->
+                <div class="form-group col-md-6">
+                    <label for="cpfAutorizado"><i class="bi bi-credit-card-2-front"></i> CPF Autorizado</label>
+                    <input type="text" class="form-control" id="cpfAutorizado" name="cpf_autorizado" value="{{ beneficiado.cpf_autorizado }}" disabled>
+                </div>
+                <!-- Sixth Form -->
+                <div class="form-group col-md-6">
+                    <label for="quantidadeLiberada"><i class="bi bi-box-seam"></i> Quantidade Liberada</label>
+                    <input type="number" class="form-control" id="quantidadeLiberada" name="quantidade_liberada" value="{{ beneficiado.quantidade_liberada }}" disabled>
+                </div>
+            </div>
+            <!-- Fourth row of forms -->
+            <div class="row">
+                <!-- Seventh Form -->
+                <div class="form-group col-md-6">
+                    <label for="tamanhoLiberado"><i class="bi bi-rulers"></i> Tamanho Liberado</label>
+                    <input type="text" class="form-control" id="tamanhoLiberado" name="tamanho_liberado" value="{{ beneficiado.tamanho_liberado }}" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="tamanhoLiberado"><i class="bi bi-rulers"></i> Data</label>
+                    <input type="text" class="form-control" id="tamanhoLiberado" name="tamanho_liberado" value="{{ beneficiado.data_final}}" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="tipoLiberado"><i class="bi bi-rulers"></i> Tipo de fralda Liberada</label>
+                    <input type="text" class="form-control" id="tipoLiberado" name="tipo_liberado" value="{{ beneficiado.marca_fralda }}" disabled>
+                </div>
+                <!-- Eighth Form -->
+                <div class="form-group col-md-6">
+                    <label for="motivoLiberacao"><i class="bi bi-card-text"></i> Motivo Liberação</label>
+                    <input type="text" class="form-control" id="motivoLiberacao" name="motivo_liberacao" value="{{ beneficiado.motivo_liberacao }}" disabled>
+                </div>
+            </div>
+            <!-- Fifth row of forms -->
+            <div class="row">
+                <!-- Ninth Form -->
+                <div class="form-group col-md-6">
+                    <label for="dataInicio"><i class="bi bi-calendar"></i> Data Início</label>
+                    <input type="date" class="form-control" id="dataInicio" name="data_inicio" value="{{ beneficiado.data_inicio }}" disabled>
+                </div>
+                <!-- Tenth Form -->
+                <div class="form-group col-md-6">
+                    <label for="validadeMeses"><i class="bi bi-calendar2"></i> Validade em Meses</label>
+                    <input type="number" class="form-control" id="validadeMeses" name="validade_meses" value="{{ beneficiado.validade_meses }}" disabled>
+                </div>
+            </div>
+            <!-- Buttons -->
+            <div class="form-row">
+                <button type="button" class="btn btn-primary" id="openDialogBtn">
+                    Editar
+                </button>
+
+                <button type="button" class="btn btn-secund" id="openDBtn">
+                    Atualizar
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<!-- Modal --><form method="POST" action="/atualizarBeneficiadoAT/{{ beneficiado.cpf_beneficiado }}"    >
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModal">Editar Informações</h5>
+                <button type="button" class="btn-close" id="closeDialogBtn" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+                    <div class="mb-3">
+                        <label for="editNomeBeneficiado" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome_beneficiado" name="nome_beneficiado" value="{{ beneficiado.nome_beneficiado }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCpfBeneficiado" class="form-label">CPF</label>
+                        <input type="text" class="form-control" id="cpf_beneficiado" name="cpf_beneficiado" value="{{ beneficiado.cpf_beneficiado }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCartaoSUS" class="form-label">Cartão SUS</label>
+                        <input type="text" class="form-control" id="cartao_sus" name="cartao_sus" value="{{ beneficiado.cartao_sus }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editNomeAutorizado" class="form-label">Nome Autorizado</label>
+                        <input type="text" class="form-control" id="nome_autorizado" name="nome_autorizado" value="{{ beneficiado.nome_autorizado }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCpfAutorizado" class="form-label">CPF Autorizado</label>
+                        <input type="text" class="form-control" id="cpf_autorizado" name="cpf_autorizado" value="{{ beneficiado.cpf_autorizado }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editQuantidadeLiberada" class="form-label">Quantidade Liberada</label>
+                        <input type="number" class="form-control" id="quantidade_liberada" name="quantidade_liberada" value="{{ beneficiado.quantidade_liberada }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editTamanhoLiberado" class="form-label">Tamanho Liberado</label>
+                        <input type="text" class="form-control" id="tamanho_liberado" name="tamanho_liberado" value="{{ beneficiado.tamanho_liberado }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editMotivoLiberacao" class="form-label">Motivo Liberação</label>
+                        <input type="text" class="form-control" id="motivo_liberacao" name="motivo_liberacao" value="{{ beneficiado.motivo_liberacao }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editValidadeMeses" class="form-label">Validade em Meses</label>
+                        <input type="number" class="form-control" id="validade_meses" name="validade_meses" value="{{ beneficiado.validade_meses }}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="closeDialogBtnFooter">Fechar</button>
+                        <button type="submit" class="btn btn-primary" id="openDialogBtn">Salvar</button>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="escolhaModal" tabindex="-2" aria-labelledby="escolhaModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <fieldset>
+                <legend>Deseja adicionar a autorização passada?</legend>
+              
+                <div>
+                  <input type="radio" id="confirmacao" name="confirmacao" value="True" checked />
+                  <label for="confirmacao">Sim</label>
+                </div>
+              
+                <div>
+                  <input type="radio" id="confirmacao" name="confirmacao" value="False" checked/>
+                  <label for="confirmacao">Não</label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn escolha-secundaria" id="escolha-secundaria">Fechar</button>
+                    <button type="button" class="btn escolha-primaria" id="escolha-primaria">Salvar</button>
+                </div>
+              </fieldset>
+              
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="escolhaModalTree" tabindex="-2" aria-labelledby="escolhaModalTre" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <fieldset>
+                <legend>ATENÇÃO, ESTÁ SOBREPONDO A AUTORIZAÇÃO PASSADA, DEVE SER JUSTIFICADO.</legend>
+              
+                <div>
+                  <input type="Text" id="justificativa" name="justificativa"/>
+                  <label for="justificativa">Adicione aqui a justificativa</label>
+                </div>
+              
+                <div>
+                <div class="modal-footer">
+                    <button type="button" class="btn escolha-justificativaDois" id="escolha-justificativaDois">Fechar</button>
+                    <button type="button" class="btn escolha-justificativaTres" id="escolha-justificativaTres">Salvar</button>
+                </div>
+              </fieldset>
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editModalTwo" tabindex="-2" aria-labelledby="editModalLabelTwo" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Informações</h5>
+                
+                <button type="button" class="btn-close" id="closeDialogBtn" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+                    <div class="mb-3">
+                        <label for="editQuantidadeLiberada" class="form-label">Nova quantidade Liberada</label>
+                        <input type="number" class="form-control" id="quantidade_liberada" name="quantidade_liberada" value="{{ beneficiado.quantidade_liberada }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editTamanhoLiberado" class="form-label">Novo tamanho Liberado</label>
+                        <input type="text" class="form-control" id="tamanho_liberado" name="tamanho_liberado" value="{{ beneficiado.tamanho_liberado }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editMotivoLiberacao" class="form-label">novo motivo Liberação</label>
+                        <input type="text" class="form-control" id="motivo_liberacao" name="motivo_liberacao" value="{{ beneficiado.motivo_liberacao }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editValidadeMeses" class="form-label">Nova validade em Meses</label>
+                        <input type="number" class="form-control" id="validade_meses" name="validade_meses" value="{{ beneficiado.validade_meses }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="tipoLiberado"><i class="bi bi-rulers"></i> Novo tipo de fralda Liberada</label>
+                        <input type="text" class="form-control" id="tipoLiberado" name="tipo_liberado" value="{{ beneficiado.marca_fralda }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="dataInicio"><i class="bi bi-calendar"></i> Nova data Início</label>
+                        <input type="date" class="form-control" id="ddata_inicio" name="data_inicio" value="{{ beneficiado.data_inicio }}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="closeDialogBtnFooter">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#openDialogBtn').click(function() {
+            $('#editModal').modal('show');
+        });
+
+        $('#closeDialogBtn, #closeDialogBtnFooter').click(function() {
+            $('#editModal').modal('hide');
+        });
+    });
+    $(document).ready(function() {
+        $('#openDBtn').click(function() {
+            $('#escolhaModal').modal('show');
+        });
+        $('#escolha-secundaria').click(function() {
+            $('#escolhaModal').modal('hide');
+            });
+
+    });
+    $(document).ready(function() {
+        $('#escolha-primari').click(function() {
+            $('#editModalTwo').modal('show');
+        });
+        $('#escolha-primari').click(function() {
+            $('#escolhaModal').modal('hide');
+        });
+    $('#closeDialogBtn, #closeDialogBtnFooter').click(function() {
+        $('#editModalTwo').modal('hide');
+        });
+    });
+
+      
+</script>
+
+<script src="/static/js/visualizar.js"></script>
+<script src="/static/js/modal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGLeiJ6AHTLdKw6WwMGvqZW3mVO4hF05q5ZjOU10D7CkHAsG4b0BIp1WxD6" crossorigin="anonymous"></script>
+
+{% elif page == 'visuF' %}
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="/static/css/sidebar.css">
+<link rel="stylesheet" href="/static/css/visuF.css">
+<link rel="stylesheet" href="/static/css/flashmessage.css">
+
+<script src="/static/js/flashtemporario.js"></script>
+<script src="/static/scripts/buscarBeneficiado.js"></script>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div id="mensagem-flash" class="flash-message">
+    <p>{{ messages[0] }}</p>
+</div>
+{% endif %}
+{% endwith %}
+
+<main>
+    <div class="form">
+        <form method="POST" action="/geraDocumento.html"
+            class="col g-3 needs-validation" id="geraDocumentoForm">
+            <div class="container mt-4">
+                <h2><i class="bi bi-person-circle"></i> Informações do
+                    Beneficiado</h2>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="nomeBeneficiado"><i
+                                class="bi bi-person"></i> Nome</label>
+                        <input type="text" class="form-control"
+                            id="nomeBeneficiado" name="nome_beneficiado"
+                            value="{{ beneficiado.nome_beneficiado }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="cpfBeneficiado"><i
+                                class="bi bi-credit-card"></i> CPF</label>
+                        <input type="text" class="form-control"
+                            id="cpfBeneficiado" name="cpf_beneficiado"
+                            value="{{ beneficiado.cpf_beneficiado }}" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="cartaoSUS"><i
+                                class="bi bi-card-checklist"></i> Cartão
+                            SUS</label>
+                        <input type="text" class="form-control" id="cartaoSUS"
+                            name="cartao_sus"
+                            value="{{ beneficiado.cartao_sus }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="nomeAutorizado"><i
+                                class="bi bi-person-badge"></i> Nome
+                            Autorizado</label>
+                        <input type="text" class="form-control"
+                            id="nomeAutorizado" name="nome_autorizado"
+                            value="{{ beneficiado.nome_autorizado }}" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="cpfAutorizado"><i
+                                class="bi bi-credit-card-2-front"></i> CPF
+                            Autorizado</label>
+                        <input type="text" class="form-control"
+                            id="cpfAutorizado" name="cpf_autorizado"
+                            value="{{ beneficiado.cpf_autorizado }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="quantidadeLiberada"><i
+                                class="bi bi-box-seam"></i> Quantidade
+                            Liberada</label>
+                        <input type="number" class="form-control"
+                            id="quantidadeLiberada" name="quantidade_liberada"
+                            value="{{ beneficiado.quantidade_liberada }}"
+                            disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="quantidaderestante"><i
+                                class="bi bi-box"></i> Quantidade
+                            Restante</label>
+                        <input type="number" class="form-control"
+                            id="quantidaderestante" name="quantidade_restante"
+                            value="{{ beneficiado.quantidade_restante }}"
+                            disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="tamanhoLiberado"><i
+                                class="bi bi-rulers"></i> Tamanho
+                            Liberado</label>
+                        <input type="text" class="form-control"
+                            id="tamanhoLiberado" name="tamanho_liberado"
+                            value="{{ beneficiado.tamanho_liberado }}" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="motivoLiberacao"><i
+                                class="bi bi-card-text"></i> Motivo
+                            Liberação</label>
+                        <input type="text" class="form-control"
+                            id="motivoLiberacao" name="motivo_liberacao"
+                            value="{{ beneficiado.motivo_liberacao }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="marcafralda"><i class="bi bi-box2"></i>
+                            Marca da Fralda</label>
+                        <input type="text" class="form-control" id="marcafralda"
+                            name="marca_fralda"
+                            value="{{ beneficiado.marca_fralda }}" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="dataInicio"><i class="bi bi-calendar"></i>
+                            Data Início</label>
+                        <input type="date" class="form-control" id="dataInicio"
+                            name="data_inicio"
+                            value="{{ beneficiado.data_inicio }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="dataInicio"><i class="bi bi-calendar"></i>
+                            Data Final</label>
+                        <input type="Text" class="form-control" id="dataFinal"
+                            name="dataFinal"
+                            value="{{ data_final_formatada }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="validadeMeses"><i
+                                class="bi bi-calendar2"></i> Validade em
+                            Meses</label>
+                        <input type="number" class="form-control"
+                            id="validadeMeses" name="validade_meses"
+                            value="{{ beneficiado.validade_meses }}" disabled>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <label for="validationCustom01" class="form-label"
+                            id="titleQnt">Quantidade a ser retirada:</label>
+                        <input type="number" name="quantidade"
+                            class="form-control" id="validationCustom01"
+                            required min="0" step="1">
+                        <div class="valid-feedback"></div>
+                        <div class="gerardocumento">
+                            <button class="gerar btn btn-primary" type="submit"
+                                id="gerarDocumentoBtn">
+                                <span
+                                    class="spinner-border spinner-border-sm d-none"
+                                    role="status" aria-hidden="true"></span>
+                                <span class="btn-text">Gerar Documento</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script src="/static/js/visualizar.js"></script>
+<script src="/static/js/farmacia.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#geraDocumentoForm').on('submit', function() {
+            $('#gerarDocumentoBtn .spinner-border').removeClass('d-none');
+            $('#gerarDocumentoBtn .btn-text').addClass('d-none');
+        });
+    });
+</script>
+
+{% elif page == 'visuP' %}
+<link rel="stylesheet" type="text/css" href="static/css/prefeitura.css">
+
+<main>
+    <div id="tituloId">
+        <h1 id="titulo">Fraldário</h1>
+        <button type="submit" onclick="voltar()">INÍCIO</button>
+        <button type="submit">FALE CONOSCO</button>
+        <form action="index_.html">
+            <button class="botao" id="um" type="submit">Login</button>
+        </form>
+    </div>
+    <button onclick="voltar()">Voltar</button>
+    <div class="sidebar">
+        <h2>Fraldário</h2>
+        <button class="button" type="submit" onclick="trocaCadastro()">Cadastrar</button>
+        <button class="button">Visualizar</button>
+        <button class="button">Relatório</button>
+    </div>
+    <form action="/pesquisarFarmacia" method="POST">
+        <div class="content">
+            <label for="cpf_pesquisado">Pesquise o beneficiado pelo CPF</label>
+            <div>
+                <input type="text" name="cpf_pesquisado" placeholder="Digite o CPF" id="cpfPego">
+                <button type="submit" onclick="pesquisarBeneficiado()">Enviar</button>
+            </div>
+        </div>
+    </form>
+    
+    
+    <script src="/static/js/visuPrefeitura.js"></script>
+</main>
+
+{% endif %}
+
+{%endblock%}

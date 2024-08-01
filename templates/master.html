@@ -1,0 +1,13 @@
+
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="custom-dashboard">
+  <h1>Bem-vindo ao Painel de Controle</h1>
+  <p>Este é um painel personalizado.</p>
+  <p>Verificação de depuração: Esta linha deve aparecer.</p>
+  {% block body %}
+  <p>Verificação de depuração: Conteúdo do Flask-Admin deve aparecer aqui.</p>
+  {{ super() }}
+  {% endblock %}
+</div>
+{% endblock %}

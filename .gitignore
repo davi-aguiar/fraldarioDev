@@ -1,0 +1,23 @@
+# Ignorar arquivos de log
+log.txt
+
+# Ignorar arquivos PDF específicos
+documento.pdf
+documento_profissional.pdf
+
+# Ignorar a pasta do ambiente virtual
+venv/
+
+# Ignorar a pasta de uploads
+uploads/
+
+# Ignorar arquivos de configuração sensíveis
+config.py
+
+
+# Ignore Python cache files
+__pycache__/
+**/__pycache__/
+
+# Ignore cache files in the dashboard directory specifically
+dashboard/__pycache__/

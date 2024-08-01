@@ -1,0 +1,109 @@
+:root {
+    --body-color: rgb(0, 0, 0);
+    --color-white: rgb(255, 255, 255);
+    --text-color-primary: #D9D9D9;
+    --text-color-second: #05595b;
+    --text-color-third: #00A28E;
+    --first-color: #00A28E;
+    --first-color-hover: #00A28E;
+    --second-color: #00A28E;
+    --third-color: #05595b;
+    --first-shadow-color: rgba(0, 0, 0, 0.1);
+    --gradient-claro: #002424;
+    --gradient-escuro: #000;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: radial-gradient(circle at center, var(--gradient-claro), var(--gradient-escuro));
+}
+
+.chat-container {
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+    height: 550px;
+    margin: 30px auto;
+    background: #05595b;
+    color: #000000;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(209, 7, 7, 0.1);
+    overflow: hidden;
+}
+
+.chat-box {
+    height: 480px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.message-container {
+    align-items: center;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.message {
+    background-color: #f0f0f0;
+    padding: 8px 12px;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.message-sender {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.input-container {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #faf5f5;
+}
+
+.input-container input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 2px solid #030303;
+    margin-right: 10px;
+}
+
+.input-container button[type="submit"] {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    background: #00A28E;
+    color: #002424;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.input-container button[type="submit"]:hover {
+    background: #00A28E;
+}
+img{
+    position: absolute;
+    width: 90px;
+    border-color: #D9D9D9;
+    border-radius: 120px;
+    margin-top: 10px;
+    margin-left: 1160px;
+    cursor: pointer;
+    
+}
+button {
+    background: #027f70;
+    border:2px solid #002424;
+    color: #002424;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+

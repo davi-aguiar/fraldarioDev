@@ -1,0 +1,70 @@
+/* Estilos para o corpo da página */
+body {
+  background-color: #f8f9fa; /* Cor de fundo cinza claro */
+  font-family: "Poppins", sans-serif; /* Fonte Poppins para todo o corpo */
+}
+
+/* Container principal */
+.container {
+  background-color: #ffffff; /* Fundo branco */
+  padding: 30px;
+  border-radius: 10px; /* Borda arredondada */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Título da página */
+h1 {
+  color: #3498db; /* Azul do tema */
+  margin-bottom: 30px;
+}
+
+/* Botões de ação */
+.btn-primary {
+  background-color: #3498db; /* Azul do tema */
+  border-color: #3498db; /* Azul do tema */
+}
+
+.btn-primary:hover {
+  background-color: #2c81ba; /* Azul mais escuro ao passar o mouse */
+  border-color: #2c81ba; /* Azul mais escuro ao passar o mouse */
+}
+
+/* Estilos para a tabela */
+#planilha-container {
+  margin-top: 30px;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  background-color: #ffffff; /* Fundo branco para a tabela */
+  border-collapse: collapse; /* Colapso das bordas das células */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.table th,
+.table td {
+  padding: 10px;
+  vertical-align: middle;
+  border-top: 1px solid #dee2e6; /* Cor da borda das células */
+}
+
+.table th {
+  background-color: #3498db; /* Azul do tema para o cabeçalho */
+  color: #ffffff; /* Texto branco */
+  font-weight: bold;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9; /* Cor de fundo cinza claro para linhas ímpares */
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f2f2f2; /* Cor de fundo cinza mais claro ao passar o mouse */
+}
+
+/* Oculta o campo de pesquisa */
+#planilha-table_wrapper .dataTables_filter {
+  display: none;
+}

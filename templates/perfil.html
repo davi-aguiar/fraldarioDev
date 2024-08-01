@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <div class="content">
+        {% if tipo_usuario == '1' %}
+        <form method="POST" class="needs-validation">
+                <h2><i class="bi bi-person-circle"></i> Informações da Farmácia</h2>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="nomeFantasia"><i class="bi bi-person"></i> Nome Fantasia</label>
+                        <input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" value="{{ nomeFantasia }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="cnpj"><i class="bi bi-credit-card"></i> CNPJ</label>
+                        <input type="text" class="form-control" id="cnpj" name="cnpj" value="{{ cnpj }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="localizacao"><i class="bi bi-geo-alt"></i> Localização</label>
+                        <input type="text" class="form-control" id="localizacao" name="localizacao" value="{{ localizacao }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="email"><i class="bi bi-envelope"></i> Email</label>
+                        <input type="text" class="form-control" id="email" name="email" value="{{ email }}" disabled>
+                    </div>
+                </div>
+                <!-- Botão para listar arquivos -->
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" id="listFilesBtn" data-farmacia-id="{{ farmacia_id }}">Listar Arquivos</button>
+                </div>
+                <!-- Área para exibir a lista de arquivos -->
+                <div id="fileList" class="mt-3">
+                    <ul class="list-group" id="fileListItems"></ul>
+                </div>
+            </form>
+            {% elif tipo_usuario == '2' %}
+            <form method="POST" class="needs-validation">
+                <h2><i class="bi bi-person-circle"></i> Informações do Autorizador</h2>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="nomeAutorizador"><i class="bi bi-person"></i> Nome</label>
+                        <input type="text" class="form-control" id="nomeAutorizador" name="nomeAutorizador" value="{{ nomeAutorizador }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="cpfAutorizador"><i class="bi bi-credit-card"></i> CPF</label>
+                        <input type="text" class="form-control" id="cpfAutorizador" name="cpfAutorizador" value="{{ cpf }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="email"><i class="bi bi-envelope"></i> Email</label>
+                        <input type="text" class="form-control" id="email" name="email" value="{{ email }}" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseDocumentos" role="button" aria-expanded="false" aria-controls="collapseDocumentos" onclick="listarArquivos({{ autorizador_id }})">
+                        Listar Arquivos
+                    </a>
+                </div>
+                <!-- Área para exibir a lista de arquivos -->
+                <div class="collapse" id="collapseDocumentos">
+                    <div class="card card-body">
+                        <ul id="document-list" class="list-group"></ul>
+                    </div>
+                </div>
+            </form>
+            {% elif tipo_usuario == '3' %}
+            <form method="POST" class="needs-validation">
+                <h2><i class="bi bi-person-circle"></i> Informações da Prefeitura</h2>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="nomePrefeitura"><i class="bi bi-person"></i> Nome</label>
+                        <input type="text" class="form-control" id="nomePrefeitura" name="nomePrefeitura" value="{{ nomePrefeitura }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="cpfPrefeitura"><i class="bi bi-credit-card"></i> CPF</label>
+                        <input type="text" class="form-control" id="cpfPrefeitura" name="cpfPrefeitura" value="{{ cpf }}" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="email"><i class="bi bi-envelope"></i> Email</label>
+                        <input type="text" class="form-control" id="email" name="email" value="{{ email }}" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" id="listFilesBtn" data-farmacia-id="{{ prefeitura_id }}">Listar Arquivos</button>
+                </div>
+                <!-- Área para exibir a lista de arquivos -->
+                <div id="fileList" class="mt-3">
+                    <ul class="list-group" id="fileListItems"></ul>
+                </div>
+            </form>
+            {% endif %}
+    </div>
+</main>
+
+<link rel="stylesheet" href="/static/css/perfil.css">
+
+<script>
+document.getElementById('listFilesBtn').addEventListener('click', function() {
+    const farmaciaId = this.getAttribute('data-farmacia-id');
+    fetch(`/list-files-farmacia/${farmaciaId}`)
+        .then(response => response.json())
+        .then(data => {
+            const fileListItems = document.getElementById('fileListItems');
+            fileListItems.innerHTML = '';
+            if (data.length > 0) {
+                data.forEach(file => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'list-group-item';
+                    listItem.innerHTML = `<a href="${file.url}">${file.filename}</a>`;
+                    fileListItems.appendChild(listItem);
+                });
+            } else {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item';
+                listItem.textContent = 'Nenhum arquivo encontrado.';
+                fileListItems.appendChild(listItem);
+            }
+        })
+        .catch(error => console.error('Erro ao listar arquivos:', error));
+});
+</script>
+
+<!-- LISTAR ARQUIVOS AUTORIZADOR -->
+<script>
+    function listarArquivos(autorizadorId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var files = JSON.parse(this.responseText);
+                var fileList = document.getElementById("document-list");
+                fileList.innerHTML = ""; // Limpa a lista antes de adicionar os novos arquivos
+                if (files.length > 0) {
+                    files.forEach(function (file) {
+                        var li = document.createElement("li");
+                        var a = document.createElement("a");
+                        a.textContent = file.filename;
+                        a.href = file.url;
+                        li.appendChild(a);
+                        fileList.appendChild(li);
+                    });
+                } else {
+                    alert("Nenhum arquivo encontrado.");
+                }
+            }
+        };
+        xhttp.open("GET", "/list-files-autorizador/" + autorizadorId, true);
+        xhttp.send();
+    }
+    </script>
+{% endblock %}

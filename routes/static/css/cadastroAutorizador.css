@@ -1,0 +1,58 @@
+:root {
+  --degrade: ;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 10%;
+}
+
+h4 {
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+form {
+  margin: 15px 0;
+  padding: 25px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 1000px; /* Limita a largura máxima do formulário */
+  background-color: #fff;
+}
+
+input[type="text"], input[type="date"] {
+  width: 100%; /* Torna os inputs de texto e data mais largos para preencher a coluna */
+}
+
+.form-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.mt-1 {
+  
+  display: flex;
+  justify-content: center;
+}
+
+select {
+  height: 38px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #CED4DA;
+}
+
+/* Remove os botões de incremento e decremento no Chrome, Safari, Edge e Opera */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

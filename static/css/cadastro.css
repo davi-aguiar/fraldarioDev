@@ -1,0 +1,274 @@
+:root {
+  --background: linear-gradient(120deg, #7a80f6 10%, #e8e6f4 50% , #7a80f6 90%)  ;
+}
+
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: var(--background);
+}
+
+.flash-message {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 500px;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem;
+  text-align: center;
+  border-radius: 10px;
+  border-bottom: 1px solid #721c24;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+
+#container {
+  width: 100%;
+  max-width: 1000px;
+  padding: 2rem;
+  backdrop-filter: blur(8px);
+  background-color: #fff;
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 32px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.linha {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  justify-content: space-around;
+  width: 100%;
+  border:  1px solid red;
+}
+
+.linha input {
+  width: 150%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #3b3b3b96;
+}
+#tipoLoginSelect {
+  width: 135%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #3b3b3b96;
+}
+
+.sub-linha {
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+
+
+
+
+select {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #3b3b3b96;
+}
+
+.required::after {
+  content: '*';
+  color: red;
+}
+
+
+
+@media screen and (max-width: 480px) {
+  #container {
+    padding: 1rem;
+  }
+
+  label {
+    font-size: 1rem;
+  }
+
+  input,
+  button {
+    font-size: 0.9rem;
+  }
+
+  .flash-message {
+    width: 90%;
+    padding: 0.5rem;
+  }
+
+  .botaoVoltar button {
+    font-size: 0.8rem;
+  }
+}
+
+.checks {
+  
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  
+ 
+}
+
+
+.form-check-label {
+  margin-left: 0.3rem;
+}
+
+.form-floating {
+  position: relative;
+  
+ 
+}
+
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #3b3b3b96;
+  padding: 5px;
+  width: 50%;
+}
+
+.form-floating label {
+  position: absolute;
+  align-items: center;
+  top: 50%;
+  left: 50px;
+  transform: translateY(-50%);
+  transition: all 0.2s;
+  padding: 0 5px;
+}
+
+.form-floating input:focus + label,
+.form-floating input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 10px;
+  font-size: 0.75rem;
+  
+  
+}
+
+#campoCnpj,
+#campoPrefeitura,
+#campoCpf {
+  display: none;
+}
+
+.mb-3 {
+  margin-bottom: 1.5rem !important;
+  align-items: center;
+  
+  text-align: left;
+}
+
+
+.button {
+  display: flex;
+  justify-content: center;
+}
+
+#buttonEnvio {
+  background-color: #034eb1;
+  border: none;
+  color: #ffffff;
+  font-weight: 500;
+ 
+  border-radius: 5px;
+  padding: 10px;
+  width: 80%;
+  font-weight: 500;
+  cursor: pointer;
+  transition: .3s all;
+}
+
+#buttonEnvio:hover {
+  background-color: #034eb1b2;
+  transform: scale(1.05);
+  color: #000;
+  font-weight: 700;
+  
+  
+  
+  padding: 10px;
+  
+  
+  cursor: pointer;
+}
+
+.input-container {
+  position: relative;
+}
+
+
+
+
+
+
+
+
+.buscarcnpj {
+  gap: 6px;
+}
+
+.pesquisarcnpj{
+  margin-left: 6px;
+  width: 55px;
+  height: 32px;
+  border: none;
+  border-radius: 5px;
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+  background-color: #1d28f3;
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-right: 10px;
+}
+
+.formoculto {
+  display: flex;
+}
+
+
+.funcoeSelecionadas {
+  width: 300px;
+}
+
+
+@media(max-width: 375px) {
+
+  .linha {
+    display: flex;
+    flex-direction: column
+  }
+
+  .linha input {
+    width: 120%;
+  }
+  #tipoLoginSelect {
+    width: 120%;
+  }
+  
+
+
+
+
+
+  #buttonEnvio {
+    width: 80%;
+  }
+}

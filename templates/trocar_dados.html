@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if page == 'trocar_email' %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="flash-message alert alert-info" id="mensagem-flash">
+    {{ messages[0] }}
+</div>
+{% endif %}
+{% endwith %}
+
+<link rel="stylesheet" href="/static/css/trocar_email.css">
+<main>
+    <div class="container">
+        <form action="{{ url_for('trocar_email') }}" method="POST"
+            class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="current_email" class="form-label">Email
+                    Atual:</label>
+                <input type="email" class="form-control" id="current_email"
+                    name="current_email" required>
+                <div class="invalid-feedback">
+                    Por favor, insira seu email atual.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="new_email" class="form-label">Novo Email:</label>
+                <input type="email" class="form-control" id="new_email"
+                    name="new_email" required>
+                <div class="invalid-feedback">
+                    Por favor, insira um novo email válido.
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Atualizar
+                Email</button>
+        </form>
+    </div>
+</main>
+
+{% elif page == 'trocar_senha' %}
+
+<link rel="stylesheet" href="/static/css/trocar_senha.css">
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="flash-message alert alert-info" id="mensagem-flash">
+    {{ messages[0] }}
+</div>
+{% endif %}
+{% endwith %}
+
+<div class="container">
+    <h1>Trocar Senha</h1>
+    <form id="trocaSenhaForm" method="POST"
+        action="{{ url_for('trocar_senha') }}" class="needs-validation"
+        novalidate>
+        <div class="mb-3 position-relative">
+            <label for="nova_senha" class="form-label">Nova Senha</label>
+            <div class="input-group">
+                <input type="password" class="form-control" name="nova_senha"
+                    id="nova_senha" required>
+                <span class="input-group-text" id="toggleNovaSenha">
+                    <i class="fa fa-eye" id="iconNovaSenha"></i>
+                </span>
+            </div>
+            <div class="invalid-feedback">
+                A senha deve ter pelo menos 8 caracteres, incluindo letras,
+                números e um caractere especial.
+            </div>
+        </div>
+        <div class="mb-3 position-relative">
+            <label for="confirmar_senha" class="form-label">Confirmar
+                Senha</label>
+            <div class="input-group">
+                <input type="password" class="form-control"
+                    name="confirmar_senha" id="confirmar_senha" required>
+                <span class="input-group-text" id="toggleConfirmarSenha">
+                    <i class="fa fa-eye" id="iconConfirmarSenha"></i>
+                </span>
+            </div>
+            <div class="invalid-feedback">
+                Por favor, confirme sua nova senha.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Trocar Senha</button>
+    </form>
+</div>
+
+<style>
+    .input-group-text {
+        cursor: pointer;
+        background: none;
+        border: none;
+    }
+
+    .input-group-text:focus {
+        outline: none;
+        box-shadow: none;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const forms = document.querySelectorAll('.needs-validation');
+
+        Array.prototype.slice.call(forms).forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add('was-validated');
+
+                const novaSenha = document.getElementById('nova_senha').value;
+                const confirmarSenha = document.getElementById('confirmar_senha').value;
+                const senhaRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+                if (novaSenha !== confirmarSenha) {
+                    alert('As senhas não coincidem. Por favor, tente novamente.');
+                    event.preventDefault();
+                } else if (!senhaRegex.test(novaSenha)) {
+                    alert('A senha deve ter pelo menos 8 caracteres, incluindo letras, números e um caractere especial.');
+                    event.preventDefault();
+                }
+            }, false);
+        });
+
+        document.getElementById('toggleNovaSenha').addEventListener('click', function() {
+            togglePasswordVisibility('nova_senha', 'iconNovaSenha');
+        });
+
+        document.getElementById('toggleConfirmarSenha').addEventListener('click', function() {
+            togglePasswordVisibility('confirmar_senha', 'iconConfirmarSenha');
+        });
+
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    });
+</script>
+
+{% endif %}
+
+{% endblock %}

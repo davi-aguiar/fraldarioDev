@@ -1,0 +1,547 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if tipo_usuario == '1' %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="flash-message" id="mensagem-flash" style="display: none;">
+    <p id="flashzin">{{ messages[0] }}</p>
+</div>
+{% endif %}
+{% endwith %}
+
+<main>
+    <div class="portal">
+        <div class="boasvindas">
+            <h1>Seja bem-vindo(a) {{ nomeFantasia }}!<br></h1>
+            <p>Sua central para gerenciar seus projetos, tarefas e progressos.</p>
+        </div>
+
+        <div class="dashboards">
+            <div class="dashs">
+                <div class="dash">
+                    <div class="dados1">
+                        <h4>Total de Fraldas Entregues</h4>
+                        <canvas id="chartTotalFraldasEntregues"></canvas>
+                        <p id="totalSemanal">Total Semanal: {{ total_fraldas_entregues }}</p>
+                    </div>
+                    <div class="dadosfooter">
+                        <p>Total Mensal: {{ total_fraldas_mes_atual }}</p>
+                        <a href="#">Detalhes</a>
+                    </div>
+                </div>
+
+                <!-- Dashboard: Marca Mais Vendida -->
+                <div class="dash">
+                    <div class="dados2">
+                        <h4>Marca mais Vendida</h4>
+                        <p>{{ marca_mais_vendida }}</p>
+                    </div>
+                    <div class="dadosfooter">
+                        <p>{{ marca_mais_vendida }}</p>
+                        <a href="#"> Detalhes</a>
+                    </div>
+                </div>
+
+                <!-- Dashboard: Média Semanal -->
+                <div class="dash">
+                    <div class="dados3">
+                        <h4>Média de Fraldas por Semana</h4>
+                        <canvas id="chartMediaFraldasSemana"></canvas>
+                        <p id="mediaSemanal">
+                            {% for valor in media_fraldas_semana %}
+                                {{ valor }}
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <div class="dadosfooter">
+                        <p>Média Mensal: {{ media_fraldas_mes }}</p>
+                        <a href="#">Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal.css') }}">
+<script src="{{ url_for('static', filename='js/flashtemporario.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Dados passados pelo servidor
+        const fraldasPorDiaSemana = {{ fraldas_por_dia_semana | tojson }};
+        const totalFraldasEntregues = {{ total_fraldas_entregues }};
+        const mediaFraldasSemana = {{ media_fraldas_semana | tojson }};
+        const marcaMaisVendida = "{{ marca_mais_vendida }}";
+
+        // Labels dos dias da semana
+        const labelsDiasSemana = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+
+        // Dados para o gráfico de Total de Fraldas Entregues por Dia da Semana
+        const dataTotalFraldas = {
+            labels: labelsDiasSemana,
+            datasets: [{
+                label: 'Fraldas Entregues',
+                data: fraldasPorDiaSemana,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Configuração do gráfico de Total de Fraldas Entregues por Dia da Semana
+        const configTotalFraldas = {
+            type: 'bar',
+            data: dataTotalFraldas,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Configuração do gráfico de Média de Fraldas por Semana
+        const configMediaFraldas = {
+            type: 'bar',
+            data: {
+                labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
+                datasets: [{
+                    label: 'Média de Fraldas por Semana',
+                    data: mediaFraldasSemana,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Renderizando os gráficos
+        new Chart(document.getElementById('chartTotalFraldasEntregues'), configTotalFraldas);
+        new Chart(document.getElementById('chartMediaFraldasSemana'), configMediaFraldas);
+    });
+</script>
+
+{% elif tipo_usuario == '2' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/flashmessage.css') }}">
+<script src="{{ url_for('static', filename='js/flashtemporario.js') }}"></script>
+
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="flash-message" id="mensagem-flash" style="display:none;">
+        <p id="flashzin">{{ messages[0] }}</p>
+    </div>
+{% endif %}
+{% endwith %}
+<main>
+    <div class="portal">
+        <div class="boasvindas">
+            <h1>Seja bem-vindo(a) {{ nomeAutorizador }}!<br></h1>
+            <p>Sua central para gerenciar seus projetos, tarefas e progressos.</p>
+        </div>
+
+        <div class="dashboards">
+            <div class="dashs">
+                <div class="dash">
+                    <div class="dados1">
+                        <h4>Total de Usuários Cadastrados por Mês</h4>
+                        <canvas id="chartTotalCadastros"></canvas>
+                    </div>
+                    <div class="dadosfooter">
+                        <p>Total: {{ total_beneficiados_geral }}</p>
+                        <a href="#">Detalhes</a>
+                    </div>
+                </div>
+            
+                <div class="dash">
+                    <div class="dados2">
+                        <h4>Marca mais Liberada</h4>
+                        <canvas id="chartMarcaMaisLiberada"></canvas>
+                    </div>
+                    <div class="dadosfooter">
+                        <p>{{ marca_mais_liberada_footer }}</p>
+                        <a href="#">Detalhes</a>
+                    </div>
+                </div>
+
+                <!-- Dashboard: Média Semanal -->
+                <div class="dash">
+                    <div class="dados3">
+                        <h4>Tamanho mais liberado</h4>
+                        <canvas id="chartTamanhoMaisLiberado"></canvas>
+                        
+                    </div>
+                    <div class="dadosfooter">
+                        <p>Tamanho Frequente: {{ tamanho_mais_liberado_footer }}</p>
+                        <a href="#">Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{url_for('static', filename='js/autorizador.js')}}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal.css') }}">
+
+
+
+
+
+<script>
+    // Dados dos beneficiados cadastrados por mês passados do Flask para o template
+    const totalBeneficiadosMensais = {{ total_beneficiados_mensais | tojson }};
+    const marcaMaisLiberadaMensal = {{ marca_mais_liberada_mensal | tojson }};
+    const tamanhoMaisLiberadoMensal = {{ tamanho_mais_liberado_mensal | tojson }};
+
+    // Ordenar os meses manualmente para garantir a ordem correta
+    const orderedMonths = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+    function sortData(data) {
+        return Object.keys(data).sort((a, b) => orderedMonths.indexOf(a) - orderedMonths.indexOf(b)).reduce((obj, key) => {
+            obj[key] = data[key];
+            return obj;
+        }, {});
+    }
+
+    // Preparar dados para Chart.js
+    const sortedBeneficiadosMensais = sortData(totalBeneficiadosMensais);
+    const sortedLabels = Object.keys(sortedBeneficiadosMensais);
+    const sortedData = Object.values(sortedBeneficiadosMensais);
+
+    // Configurar e renderizar o gráfico de barras para cadastros mensais
+    const ctx = document.getElementById('chartTotalCadastros').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: sortedLabels,
+            datasets: [{
+                label: 'Cadastros Mensais',
+                data: sortedData,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Cadastros Mensais de Beneficiados pelo Autorizador'
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Preparar dados para Chart.js para a marca mais liberada
+    const sortedMarcaMaisLiberadaMensal = sortData(marcaMaisLiberadaMensal);
+    const marcaLabels = Object.keys(sortedMarcaMaisLiberadaMensal);
+    const marcaData = marcaLabels.map(label => sortedMarcaMaisLiberadaMensal[label]);
+
+    // Configurar e renderizar o gráfico de barras para a marca mais liberada
+    const marcaCtx = document.getElementById('chartMarcaMaisLiberada').getContext('2d');
+    const marcaChart = new Chart(marcaCtx, {
+        type: 'bar',
+        data: {
+            labels: marcaLabels,
+            datasets: [{
+                label: 'Marca Mais Liberada',
+                data: marcaLabels.map(() => 1),  // Set all values to 1 to create a uniform bar chart
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Marca Mais Liberada por Mês pelo Autorizador'
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        display: false // Hide y-axis ticks
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            return ''; // Remove title
+                        },
+                        label: function(context) {
+                            return marcaData[context.dataIndex]; // Show only the brand name
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Preparar dados para Chart.js para o tamanho mais liberado
+    const sortedTamanhoMaisLiberadoMensal = sortData(tamanhoMaisLiberadoMensal);
+    const tamanhoLabels = Object.keys(sortedTamanhoMaisLiberadoMensal);
+    const tamanhoData = tamanhoLabels.map(label => sortedTamanhoMaisLiberadoMensal[label]);
+
+    // Configurar e renderizar o gráfico de barras para o tamanho mais liberado
+    const tamanhoCtx = document.getElementById('chartTamanhoMaisLiberado').getContext('2d');
+    const tamanhoChart = new Chart(tamanhoCtx, {
+        type: 'bar',
+        data: {
+            labels: tamanhoLabels,
+            datasets: [{
+                label: 'Tamanho Mais Liberado',
+                data: tamanhoLabels.map(() => 1),  // Set all values to 1 to create a uniform bar chart
+                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Tamanho Mais Liberado por Mês pelo Autorizador'
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        display: false // Hide y-axis ticks
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            return ''; // Remove title
+                        },
+                        label: function(context) {
+                            return tamanhoData[context.dataIndex]; // Show only the size
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
+{% elif tipo_usuario == '3' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/flashmessage.css') }}">
+<script src="{{ url_for('static', filename='js/flashtemporario.js') }}"></script>
+
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="flash-message" id="mensagem-flash" style="display: none;">
+        <p id="flashzin">{{ messages[0] }}</p>
+    </div>
+{% endif %}
+{% endwith %}
+
+<main>
+    <div class="portal">
+        <div class="boasvindas">
+            <h1>Seja bem-vindo(a) {{ nomePrefeitura }}!<br></h1>
+            <p>Sua central para gerenciar seus projetos, tarefas e progressos.</p>
+        </div>
+
+        <div class="dashboards">
+            <div class="dashs">
+                <div class="dash">
+                    <div class="dados1">
+                        <h4>Total de Farmácias Cadastradas por Mês</h4>
+                        <canvas id="chartTotalFarmaciasCadastradas"></canvas>
+                    </div>
+                    <div class="dadosfooter">
+                        <p>Total de Farmácias : {{ total_farmacias_geral }} </p>
+                        <a href="/dashFarmacia">Detalhes</a>
+                    </div>
+                </div>
+
+                <div class="dash">
+                    <div class="dados2">
+                        <h4>Total de Beneficiados Cadastrados por Mês</h4>
+                        <canvas id="chartTotalBeneficiadosCadastrados"></canvas>
+                    </div>
+                    <div class="dadosfooter">
+                        <p>Total de Beneficiados: {{ total_beneficiados_geral }}</p>
+                        <a href="/dash_beneficiado">Detalhes</a>
+                    </div>
+                </div>
+
+                <div class="dash">
+                    <div class="dados3">
+                        <h4>Total de Fraldas Entregues por Mês</h4>
+                        <canvas id="chartTotalFraldasEntregues"></canvas>
+                    </div>
+                    <div class="dadosfooter">
+                        <p>Total de Fraldas Entregues: {{ total_fraldas_geral }}</p>
+                        <a href="/dashFarmacia">Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Verificar se os dados estão corretos no console
+        console.log("Total de Farmácias Mensais:", {{ total_farmacias_mensais | tojson }});
+        console.log("Total de Beneficiados Mensais:", {{ total_beneficiados_mensais | tojson }});
+        console.log("Total de Fraldas Mensais:", {{ total_fraldas_mensais | tojson }});
+
+        // Dados para o gráfico de farmácias cadastradas por mês
+        const labelsFarmacias = {{ total_farmacias_mensais.keys() | list | tojson }};
+        const dataFarmacias = {{ total_farmacias_mensais.values() | list | tojson }};
+        // Dados para o gráfico de beneficiados cadastrados por mês
+        const labelsBeneficiados = {{ total_beneficiados_mensais.keys() | list | tojson }};
+        const dataBeneficiados = {{ total_beneficiados_mensais.values() | list | tojson }};
+        // Dados para o gráfico de fraldas entregues por mês
+        const labelsFraldas = {{ total_fraldas_mensais.keys() | list | tojson }};
+        const dataFraldas = {{ total_fraldas_mensais.values() | list | tojson }};
+
+        // Configuração do gráfico de farmácias cadastradas por mês
+        const ctxFarmacias = document.getElementById('chartTotalFarmaciasCadastradas').getContext('2d');
+        new Chart(ctxFarmacias, {
+            type: 'bar',
+            data: {
+                labels: labelsFarmacias,
+                datasets: [{
+                    label: 'Total de Farmácias Cadastradas',
+                    data: dataFarmacias,
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Quantidade de Farmácias'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Meses'
+                        }
+                    }
+                },
+                elements: {
+                    bar: {
+                        borderWidth: 2
+                    }
+                }
+            }
+        });
+
+        // Configuração do gráfico de beneficiados cadastrados por mês
+        const ctxBeneficiados = document.getElementById('chartTotalBeneficiadosCadastrados').getContext('2d');
+        new Chart(ctxBeneficiados, {
+            type: 'bar',
+            data: {
+                labels: labelsBeneficiados,
+                datasets: [{
+                    label: 'Total de Beneficiados Cadastrados',
+                    data: dataBeneficiados,
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Número de Beneficiados'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Meses'
+                        }
+                    }
+                },
+                elements: {
+                    bar: {
+                        borderWidth: 2
+                    }
+                }
+            }
+        });
+
+        // Configuração do gráfico de fraldas entregues por mês
+        const ctxFraldas = document.getElementById('chartTotalFraldasEntregues').getContext('2d');
+        new Chart(ctxFraldas, {
+            type: 'bar',
+            data: {
+                labels: labelsFraldas,
+                datasets: [{
+                    label: 'Total de Fraldas Entregues',
+                    data: dataFraldas,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Quantidade de Fraldas'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Meses'
+                        }
+                    }
+                },
+                elements: {
+                    bar: {
+                        borderWidth: 2
+                    }
+                }
+            }
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/flashmessage.css') }}">
+<script src="{{ url_for('static', filename='js/flashtemporario.js') }}"></script>
+{% endif %}
+{% endblock %}

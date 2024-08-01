@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Página Inicial</title>
+    <link rel="stylesheet" href="/static/css/editar_paginainicial.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Página Inicial</h1>
+        <form action="{{ url_for('editar_paginainicial') }}" method="post">
+            <div class="form-group">
+                <label for="capa">Capa:</label>
+                <input type="file" id="capa" name="capa" accept=".jpg, .jpeg, .png, .tiff">
+                {% if capa %}
+                    <img src="{{ url_for('static', filename=capa) }}" alt="Capa Atual" style="max-width: 200px; max-height: 200px;">
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" value="{{ titulo }}" required>
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" name="descricao" required>{{ descricao }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="beneficiarios_adultos">Beneficiários (Adultos):</label>
+                <textarea id="beneficiarios_adultos" name="beneficiarios_adultos" required>{{ beneficiarios_adultos }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="beneficiarios_criancas">Beneficiários (Crianças):</label>
+                <textarea id="beneficiarios_criancas" name="beneficiarios_criancas" required>{{ beneficiarios_criancas }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="objetivo1">Objetivo 1:</label>
+                <textarea id="objetivo1" name="objetivo1" required>{{ objetivo1 }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="objetivo2">Objetivo 2:</label>
+                <textarea id="objetivo2" name="objetivo2" required>{{ objetivo2 }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="objetivo3">Objetivo 3:</label>
+                <textarea id="objetivo3" name="objetivo3" required>{{ objetivo3 }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+</body>
+</html>

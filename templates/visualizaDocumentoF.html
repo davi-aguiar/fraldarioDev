@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="flash-message" id="mensagem-flash" style="display: none;">
+  <p id="flashzin">{{ messages[0] }}</p>
+</div>
+{% endif %}
+{% endwith %}
+
+<link rel="stylesheet" href="/static/css/geraDocumento.css">
+
+<main>
+  <div class="content">
+    <div id="beneficiadoInfo">
+        <div class="Popup" id="Popup">
+            <h2>Arquivos:</h2>
+            <ul id="listarArquivosFarmacia"></ul>
+        </div>
+        <button class="buttonns" onclick="Tpopup()">Listar Arquivos</button>
+        <div class="botaoFechamento" id="botaoFechamento" onclick="Hpopup()"></div>
+      <div class="pdf-container">
+        <embed id="pdf-viewer" src="" type="application/pdf" width="100%" height="100%">
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="/static/js/farmacia.js"></script>
+<script>
+  // Adicionar um listener para o evento de fechar a página
+  window.addEventListener('unload', function () {
+    // Fazer uma requisição AJAX para realizar o logout
+    $.ajax({
+      url: '/logout', // Endpoint de logout no Flask
+      type: 'GET', // Método GET (ou POST, dependendo da sua configuração)
+      async: false, // Síncrono para garantir que a requisição seja concluída antes do redirecionamento
+      success: function () {
+        console.log('Logout realizado com sucesso ao recarregar a página.');
+      },
+      error: function () {
+        console.error('Erro ao tentar fazer logout ao recarregar a página.');
+      }
+    });
+  });
+</script>
+
+{% endblock %}

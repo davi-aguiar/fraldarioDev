@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/css/sidebar.css">
+
+        <link rel="stylesheet" href="/static/css/flashmessage.css">
+        <!-- links css end -->
+        <link rel="shortcut icon" href="/static/fotos/anonimo.png"
+            type="image/x-icon"> <!--Icon page-->
+        <link rel="stylesheet" href="/static/css/splash.css">
+        <title>
+            {% if tipo_usuario == '1' %}
+            Farmácia
+            {% elif tipo_usuario == '2' %}
+            Autorizador
+            {% elif tipo_usuario == '3' %}
+            Prefeitura
+            {% elif first_login %}
+            Troca de Senha
+            {% endif %}
+        </title>
+
+        <!-- icons side bar -->
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- icons sidebar end -->
+        <link rel="stylesheet" href="/static/css/selecionarbotao.css">
+        <script src="/static/js/prefeitura2.js" defer></script>
+        <link rel="shortcut icon" href="/static/fotos/anonimo.png"
+            type="image/x-icon">
+        <script src="/static/js/selecionarbotao.js"></script>
+    </head>
+    <body>
+
+        <div id="splash-screen">
+            <img src="/static/fotos/easy diaper logo.png" alt="Easy Diaper Logo"
+                id="splash-logo">
+        </div>
+        <button class="menu-btn" id="menuBtn">&#9776;</button>
+      
+            {% if not first_login %}
+            <nav id="sidebar">
+                <div id="sidebar_content">
+                    <div id="user">
+                        <!-- user avatar -->
+                        <a href="/portal">
+                            <img src="/static/fotos/anonimo.png"
+                                id="user_avatar"
+                                alt="Foto do usuário">
+                        </a>
+
+                        <p id="user_infos">
+                            <span class="item-description">
+                                {%if tipo_usuario == "1" %}
+                                {{nomeFantasia}}
+                                {%elif tipo_usuario == "2"%}
+                                {{nomeAutorizador}}
+                                {%elif tipo_usuario == "3"%}
+                                {{nomePrefeitura}}
+                                {%endif%}
+                            </span>
+                            <span class="item-description">
+                                {%if tipo_usuario == "1" %}
+                                Farmácia
+                                {%elif tipo_usuario == "2"%}
+                                Autorizador
+                                {%elif tipo_usuario == "3"%}
+                                Prefeitura
+                                {%endif%}
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- botao 1 -->
+                    <ul id="side_items">
+                        {%if tipo_usuario == '1'%}
+                        <li class="side-item" id="visualizar">
+                            <a href="/busca">
+                                <i class="fa-solid fa-user"></i>
+                                <span class="item-description">Pesquisar</span>
+                            </a>
+                        </li>
+                        {% elif tipo_usuario == '2' %}
+                        {% if current_user.has_function('Cadastrar Beneficiado') %}
+                            <li class="side-item" id="cadastro">
+                                <a href="/cadastroAutorizador">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <span class="item-description">Cadastro</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    
+                        {%elif tipo_usuario == '3' %}
+                        <li class="side-item" id="cadastro">
+                            <a href="/cadastros">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <span class="item-description">Cadastro</span>
+                            </a>
+                        </li>
+                        {%endif%}
+
+                        <!-- botao 2 -->
+                        {%if tipo_usuario == '1'%}
+            
+                                <li class="side-item">
+                                    <a href="/gerar_planilhaF"
+                                        onclick="event.preventDefault(); this.querySelector('form').submit();">
+                                        <i class="fa-solid fa-chart-line"></i>
+                                        <span class="item-description">Relatório</span>
+                                        <form action="/gerar_planilhaF" method="GET"
+                                            class="sidebar-link"
+                                            style="display: none;"></form>
+                                    </a>
+                                </li>
+                     
+                        {%elif tipo_usuario == '2' %}
+                            {% if current_user.has_function('Visualizar Beneficiado') %}
+                                <li class="side-item" id="visualizar">
+                                    <a href="/busca">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <span class="item-description">Pesquisar</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {%elif tipo_usuario == '3' %}
+                        <li class="side-item" id="visualizar">
+                            <a href="/visualizar">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <span class="item-description">Pesquisar</span>
+                            </a>
+                        </li>
+                        {%endif%}
+
+                        <!-- botao 3 -->
+                        {%if tipo_usuario =='2'%}
+                        <li class="side-item">
+                            <a href="/gerar_planilhaAut"
+                                onclick="event.preventDefault(); this.querySelector('form').submit();">
+                                <i class="fa-solid fa-chart-line"></i>
+                                <span class="item-description">Relatório</span>
+                                <form action="/gerar_planilhaAut" method="GET"
+                                    class="sidebar-link"
+                                    style="display: none;"></form>
+                            </a>
+
+                            {%elif tipo_usuario == '3' %}
+                            <li class="side-item" id="dashboard">
+                                <a href="/dashboards">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <span
+                                        class="item-description">Dashboard</span>
+                                </a>
+                            </li>
+                            {%endif%}
+
+                            <!-- botao 4 -->
+                            {%if tipo_usuario == '3'%}
+                            <li class="side-item" id="relatorios">
+                                <a href="/relatorios">
+                                    <i class="fa-solid fa-table"></i>
+                                    <span
+                                        class="item-description">Relatórios</span>
+                                </a>
+                            </li>
+                            {%endif%}
+                            {%if tipo_usuario == '3'%}
+                            <li class="side-item" id="relatorios">
+                                <a href="/editar_paginainicial">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <span
+                                        class="item-description">Editar</span>
+                                </a>
+                            </li>
+                            {%endif%}
+
+                            <!-- botao 5 -->
+
+                        </ul>
+                        <button id="open_btn">
+                            <i id="open_btn_icon"
+                                class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div>
+                        <div id="configuracoes">
+                            <ul id="side_items">
+                                <li class="side-item" id="configuracao">
+                                    <button onclick="toggleConfigMenu()">
+                                        <i class="fa-solid fa-gear"></i>
+                                        <span
+                                            class="item-description">Configurações</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="logout">
+                            <a href="{{ url_for('logout') }}" id="logout_btn">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <span class="item-description">Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+                {%endif%}
+
+                <main>
+                    <div id="configuracoes_menu" class="hidden">
+                        <ul>
+                            <li>
+                                <a href="/perfil">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span>Visualizar Perfil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/trocar_email">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <span>Alterar Email</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/trocar_senha">
+                                    <i class="fa-solid fa-key"></i>
+                                    <span>Alterar Senha</span>
+                                </a>
+                            </li>
+                            <!-- <li>
+                            <button onclick="listarArquivos(this)"
+                                data-tipo-usuario="{{ tipo_usuario }}"
+                                data-id="{{ usuario_id }}">
+                                Listar Arquivos
+                            </button>
+                            <ul id="document-list"></ul>
+                        </li> -->
+                        </ul>
+                    </div>
+
+                    {% block content %}
+                    {% endblock %}
+                </main>
+
+                <script>
+        function toggleConfigMenu() {
+            const configMenu = document.getElementById('configuracoes_menu');
+            const formContainer = document.getElementById('form_container');
+            if (configMenu.classList.contains('hidden')) {
+                configMenu.classList.remove('hidden');
+                formContainer.classList.add('hidden');
+            } else {
+                configMenu.classList.add('hidden');
+            }
+        }
+    
+        
+    </script>
+
+            </script>
+        </script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+
+        <script src="/static/js/splash.js"></script>
+        <script>
+            document.getElementById('menuBtn').addEventListener('click', function(){
+                const sidebar = document.getElementById('sidebar');
+                if(sidebar.classList.contains('visible')){
+                    sidebar.classList.remove('visible');
+                    sidebar.classList.add('hidden');
+                } else{
+                    sidebar.classList.remove('hidden');
+                    sidebar.classList.add('visible');
+                }
+            })
+        </script>
+    </body>
+</html>

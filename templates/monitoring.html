@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Monitoring</title>
+    <link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{{ url_for('admin.index') }}">Admin
+        Panel</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link"
+              href="{{ url_for('admin.index') }}">Dashboard</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link"
+              href="{{ url_for('monitoring.monitoring') }}">Monitoramento</a>
+          </li>
+          <!-- Outros links de navegação -->
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div id="cpu-usage-chart"></div>
+      <div id="memory-usage-chart"></div>
+    </div>
+
+    <script>
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
+        var cpuUsageChart = {
+            x: [],
+            y: [],
+            type: 'line'
+        };
+
+        var memoryUsageChart = {
+            x: [],
+            y: [],
+            type: 'line'
+        };
+
+        Plotly.newPlot('cpu-usage-chart', [cpuUsageChart]);
+        Plotly.newPlot('memory-usage-chart', [memoryUsageChart]);
+
+        socket.on('update_data', function(data) {
+            var currentTime = new Date().toLocaleTimeString();
+
+            cpuUsageChart.x.push(currentTime);
+            cpuUsageChart.y.push(data.cpu_usage);
+            memoryUsageChart.x.push(currentTime);
+            memoryUsageChart.y.push(data.memory_usage);
+
+            Plotly.update('cpu-usage-chart', {x: [cpuUsageChart.x], y: [cpuUsageChart.y]});
+            Plotly.update('memory-usage-chart', {x: [memoryUsageChart.x], y: [memoryUsageChart.y]});
+        });
+
+        socket.emit('request_data');
+    </script>
+  </body>
+</html>

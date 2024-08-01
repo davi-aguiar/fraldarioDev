@@ -1,0 +1,185 @@
+{%extends "base.html"%}
+
+{%block content%}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/sidebar.css">
+    <link rel="stylesheet" href="/static/css/flashmessage.css">
+    <link rel="stylesheet" href="/static/css/BuscaPAutorizador.css">
+    <link rel="shortcut icon" href="static/fotos/anonimo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/fotos/anonimo.png" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+
+
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-message" id="mensagem-flash" style="display: none;">
+            <p id="flashzin">{{ messages[0] }}</p>
+        </div>
+        {% endif %}
+        {% endwith %}
+        
+        
+        
+        <script src="/static/js/flashtemporario.js"></script>
+        <script src="/static/js/prefeitura2.js"></script>
+        <script src="/static/js/selecionarbotao.js"></script>
+
+
+{%if page == 'BuscaPAutorizador' %}
+
+
+
+
+
+    
+    <main>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-message" id="mensagem-flash" style="display: none;">
+            <p id="flashzin">{{ messages[0] }}</p>
+        </div>
+        {% endif %}
+        {% endwith %}
+        <div class="content">
+            <h1>Busque o Autorizador</h1>
+            <form action="/pesquisarPautorizador" method="POST" class="form" novalidate>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="cpf_pesquisado" name="cpf_pesquisado" maxlength="11"
+                        minlength="11" placeholder="Insira o CPF" required>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                    </div>
+                    <div class="invalid-feedback">Por favor, insira um CPF válido.</div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+
+
+
+
+
+
+    {%elif page == 'buscaPBeneficiado' %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/sidebar.css">
+    <link rel="stylesheet" href="/static/css/flashmessage.css">
+    <link rel="stylesheet" href="/static/css/BuscaPAutorizador.css">
+    <link rel="shortcut icon" href="static/fotos/anonimo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/fotos/anonimo.png" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+
+
+
+
+    <link rel="stylesheet" href="/static/css/BuscaPAutorizador.css">    
+    <main>
+        
+        <div class="content">
+            <h1>Busque o Beneficiado</h1>
+            <form action="/pesquisarPbeneficiado" method="POST" class="form"
+                    novalidate>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control"
+                            id="cpf_pesquisado" name="cpf_pesquisado"
+                            placeholder="Insira o CPF" required
+                            pattern="[0-9]{11}" maxlength="11">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary"><i
+                                    class="bi bi-search"></i></button>
+                        </div>
+                        <div class="invalid-feedback">Por favor, insira um CPF
+                            válido.</div>
+                    </div>
+                </form>
+        </div>
+    </main>
+
+    <script src="/static/js/flashtemporario.js"></script>
+
+    {%elif page == 'buscaPFarmacia' %}
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/sidebar.css">
+    <link rel="stylesheet" href="/static/css/flashmessage.css">
+    <link rel="stylesheet" href="/static/css/BuscaPAutorizador.css">
+    <link rel="shortcut icon" href="static/fotos/anonimo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/fotos/anonimo.png" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+</head>
+<body>
+
+    
+    <main>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-message" id="mensagem-flash" style="display: none;">
+            <p id="flashzin">{{ messages[0] }}</p>
+        </div>
+        {% endif %}
+        {% endwith %}
+        <div class="content">
+            <h1>Busque a Farmácia  </h1>
+            <form action="/pesquisarPfarmacia" method="POST" class="form" novalidate>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control"  name="cnpj_pesquisado" placeholder="Insira o cnpj" required pattern="[0-9]{14}" maxlength="18">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+                    </div>
+                    <div class="invalid-feedback">Por favor, insira um CPF válido.</div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="/static/js/flashtemporario.js"></script>
+    <script src="/static/js/prefeitura2.js"></script>
+    <script src="/static/js/selecionarbotao.js"></script>
+
+
+
+    {%endif%}
+
+{%endblock%}

@@ -1,0 +1,373 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/cadastro.css">
+<link rel="stylesheet" href="/static/css/sidebar.css">
+<link rel="stylesheet" href="/static/css/flashmessage.css">
+<script src="/static/js/flashtemporario.js"></script>
+<script src="/static/js/selecionarbotao.js"></script>
+
+<!-- font start -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="flash-message" id="mensagem-flash" style="display: none;">
+    <p id="flashzin">{{ messages[0] }}</p>
+</div>
+{% endif %}
+{% endwith %}
+
+<div id="container" class="container-md">
+    <h5>
+        Preencha todos os campos abaixo com os respectivos onde o campo possuir *.
+    </h5>
+
+    <form action="/cadastro" enctype="multipart/form-data" method="POST" onsubmit="handleFormSubmit();">
+        <div class="form-floating mb-3">
+            <div class="linha" >
+                <div class="form-floating mb-3">
+                        <p class="required" style="margin-left: 10px">Email</p>
+                        <input type="email" class="form-control" id="floatingInput" name="username" value="{{ request.form.get('username', '') }}" placeholder="EMAIL" required style="margin-left: 5px">
+
+                </div>
+                <div class="form-floating mb-3">
+                    <p class="required">Tipo de Usuário</p>
+                    <select class="form-select" id="tipoLoginSelect" name="login" onchange="selecionarTipoLogin()" required>
+                        <option value="" disabled selected>Selecione o tipo de login</option>
+                        <option value="1">Farmácia</option>
+                        <option value="2">Autorizador</option>
+                        <option value="3">Gestor</option>
+                    </select>
+                        
+
+                </div>
+            </div>
+        </div>    
+            
+        
+
+        
+
+        <!-- Campos específicos para farmácias -->
+        <div id="campoCnpj"  class="formoculto form-floating mb-3">
+            <div class="linha">
+                <div class="form-floating mb-3 ">
+                    <div class="sub-linha">
+                        <p class="required">CNPJ:</p>
+                        <input type="text" class="form-control" id="cnpj" name="cnpj" value="{{ request.form.get('cnpj', '') }}" placeholder="CNPJ" maxlength="18">
+                        
+                    </div>
+                </div>
+                
+                <div class="form-floating mb-3">
+                    <p class="required">Nome Fantasia</p>
+                    <input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" value="{{ request.form.get('nomeFantasia', '') }}" placeholder="Nome Fantasia" readonly> <!-- Adicionar readonly depois + botão para habilitar edição-->
+                </div>
+            </div>
+        
+            <div class="linha">
+                <div class="form-floating mb-3">
+                    <p class="required">Razão Social</p>
+                    <input type="text" class="form-control" id="razaoSocial" name="razaoSocial" value="{{ request.form.get('razaoSocial', '') }}" placeholder="Razão Social" readonly><!-- Adicionar readonly depois + botão para habilitar edição-->
+                </div>
+                <div class="form-floating mb-3">
+                    <p class="required">CEP</p>
+                    <input type="text" class="form-control" id="cep" name="cep" value="{{ request.form.get('cep', '') }}" placeholder="Cep" maxlength="9" onblur="buscarCep()">
+                </div>
+            </div>
+        
+            <div class="linha">
+                <div class="form-floating mb-3">
+                    <p class="required">Logradouro</p>
+                    <input type="text" class="form-control" id="logradouro" name="logradouro" value="{{ request.form.get('logradouro', '') }}" placeholder="Logradouro" readonly>
+                </div>
+                <div class="form-floating mb-3">
+                    <p class="required">Número</p>
+                    <input type="text" class="form-control" id="numero" name="numero" value="{{ request.form.get('numero', '') }}" placeholder="Número">
+                </div>
+            </div>
+
+            <div class="linha">
+                <div class="form-floating mb-3">
+                    <p>Complemento</p>
+                    <input type="text" class="form-control" id="complemento" name="complemento" value="{{ request.form.get('complemento', '') }}" placeholder="Complemento">
+                </div>
+                <div class="form-floating mb-3">
+                    <p class="required">Bairro</p>
+                    <input type="text" class="form-control" id="bairro" name="bairro" value="{{ request.form.get('bairro', '') }}" placeholder="Bairro" readonly>
+                </div>
+            </div>
+
+            <div class="linha">
+                <div class="form-floating mb-3">
+                    <p class="required">Cidade</p>
+                    <input type="text" class="form-control" id="cidade" name="cidade" value="{{ request.form.get('localizacao', '') }}" placeholder="Cidade" readonly>
+                </div>
+                <div class="form-floating mb-3">
+                    <p class="required">Estado</p>
+                    <input type="text" class="form-control" id="estado" name="estado" value="{{ request.form.get('estado', '') }}" placeholder="Estado" readonly>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <select id="tamanhoFraldaSelect" class="form-select">
+                    <option value="" disabled selected>Selecione o Tamanho</option>
+                    <option value="RN">RN</option>
+                    <option value="PP">PP</option>
+                    <option value="P">P</option>
+                    <option value="M">M</option>
+                    <option value="G">G</option>
+                    <option value="GG">GG</option>
+                    <option value="XXG">XXG</option>
+                </select>
+                <div id="tamanhosSelecionados"></div>
+            </div>
+
+            <div class="mb-3">
+                <select id="tipoFraldaSelect" class="form-select">
+                    <option value="" disabled selected>Selecione o Tipo</option>
+                    <option value="Geriatrica">Geriátrica</option>
+                    <option value="Infantil">Infantil</option>
+                </select>
+                <div id="tiposSelecionados"></div>
+            </div>
+
+            <div class="mb-3">
+                
+                <select id="funcoesSelect" class="form-select">
+                    <option value="Visualizar Informações">Visualizar Informações</option>
+                    <option value="Pegar Fraldas">Pegar Fraldas</option>
+                    <option value="Gerar Planilha">Gerar Planilha</option>
+                    <option value="Dashboard">Dashboard</option>
+                </select>
+                <div id="funcoesSelecionadas"></div>
+            </div>
+        </div>
+
+        <!-- Campos específicos para autorizadores -->
+        <div id="campoCpf" style="display:none;">
+            <div class="linha">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nomeAutorizador" name="nomeAutorizador" value="{{ request.form.get('nomeAutorizador', '') }}" placeholder="Nome Completo">
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="cpf" name="cpf" value="{{ request.form.get('cpf', '') }}" placeholder="CPF" maxlength="14">
+                </div>
+
+            </div>
+            
+            <div class="mb-3">
+                
+                <select id="funcoesSelectAutorizador" class="form-select">
+                    <option value="Cadastrar Beneficiado">Cadastrar Beneficiado</option>
+                    <option value="Editar Beneficiado">Editar Beneficiado</option>
+                    <option value="Atualizar Beneficiado">Atualizar Beneficiado</option>
+                    <option value="Gerar Planilha">Gerar Planilha</option>
+                    <option value="Dashboard">Dashboard</option>
+                    <option value="Visualizar Beneficiado"> Visualizar Beneficiado</option>
+                </select>
+                <div id="funcoesSelecionadasAutorizador"></div>
+            </div>
+        </div>
+
+        <!-- Campos específicos para prefeituras -->
+        <div id="campoPrefeitura" style="display:none;">
+            <div class="linha">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nomePrefeitura" name="nomePrefeitura" value="{{ request.form.get('nomePrefeitura', '') }}" placeholder="Nome Completo">
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="cpf_prefeitura" name="cpf_prefeitura" value="{{ request.form.get('cpf_prefeitura', '') }}" placeholder="CPF" maxlength="14">
+                </div>
+
+            </div>
+            
+            <div class="mb-3">
+                
+                <select id="funcoesSelectPrefeitura" class="form-select">
+                    <option value="Cadastrar Beneficiado">Cadastrar Beneficiado</option>
+                    <option value="Editar Beneficiado">Editar Beneficiado</option>
+                    <option value="Atualizar Beneficiado">Atualizar Beneficiado</option>
+                    <option value="Gerar Planilha">Gerar Planilha</option>
+                    <option value="Dashboard">Dashboard</option>
+                    <option value="Desativar Usuários">Desativar Usuários</option>
+                    <option value="Ativar Usuários">Ativar Usuários</option>
+                </select>
+                <div id="funcoesSelecionadasPrefeitura"></div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="documento" class="form-label">Insira o documento:</label>
+            <input type="file" name="documento" id="documento" class="form-control" required>
+        </div>
+        <div class="button mb-4">
+            <button class="btn btn-primary" type="submit" name="buttonEnvio" id="buttonEnvio">
+                <span class="visually-hidden" role="status">Enviar</span>
+            </button>
+        </div>
+        <input type="hidden" id="tamanhoFraldaInput" name="tamanho_fralda">
+        <input type="hidden" id="tipoFraldaInput" name="tipos_fralda">
+        <input type="hidden" id="funcoesInput" name="funcoes">
+        <input type="hidden" id="funcoesInputAutorizador" name="funcoes_autorizador">
+        <input type="hidden" id="funcoesInputPrefeitura" name="funcoes_prefeitura">
+
+        </div>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    // Máscara para telefone
+    $('#telefone').mask('(00) 00000-0000');
+    
+    // Máscara para CPF
+    $('#cpf').mask('000.000.000-00');
+
+    $('#cep').mask('00.000-000')
+    
+    // Máscara para número do Cartão SUS
+    $('#sus').mask('000.0000.0000.0000');
+
+    // Máscara para CNPJ
+    $('#cnpj').mask('00.000.000/0000-00');
+
+    // Evento de input para CNPJ
+    $('#cnpj').on('input', function() {
+        let cnpj = $(this).val().replace(/\D/g, '');
+        if (cnpj.length === 14) {
+            consultarDocumento('cnpj');
+        }
+    });
+});
+
+function consultarDocumento(tipo) {
+    let documento = '';
+    if (tipo === 'cnpj') {
+        documento = limparCnpj(document.getElementById('cnpj').value);
+        if (documento.length === 14) {
+            fetch(`/consultar_cnpj/${documento}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        document.getElementById('nomeFantasia').value = data.fantasia || data.nome;
+                        document.getElementById('razaoSocial').value = data.nome;
+                        document.getElementById('logradouro').value = data.logradouro;
+                        document.getElementById('bairro').value = data.bairro;
+                        document.getElementById('cidade').value = data.municipio;
+                        document.getElementById('estado').value = data.uf;
+                    }
+                });
+        }
+    }
+}
+
+function limparCnpj(cnpj) {
+    return cnpj.replace(/[^\d]+/g, '');
+}
+
+function limparCpf(cpf) {
+    return cpf.replace(/[^\d]+/g, '');
+}
+
+function selecionarTipoLogin() {
+    const tipoLogin = document.getElementById('tipoLoginSelect').value;
+    document.getElementById('campoCnpj').style.display = (tipoLogin == '1') ? 'block' : 'none';
+    document.getElementById('campoCpf').style.display = (tipoLogin == '2') ? 'block' : 'none';
+    document.getElementById('campoPrefeitura').style.display = (tipoLogin == '3') ? 'block' : 'none';
+}
+
+function limparCep(cep) {
+    return cep.replace(/[^\d]+/g, '');
+}
+
+function buscarCep() {
+    const cep = limparCep(document.getElementById('cep').value);
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.erro) {
+                flashMessage('CEP não encontrado');
+            } else {
+                document.getElementById('logradouro').value = data.logradouro;
+                document.getElementById('bairro').value = data.bairro;
+                document.getElementById('cidade').value = data.localidade;
+                document.getElementById('estado').value = data.uf;
+            }
+        })
+        .catch(error => {
+            flashMessage(error.message);
+        });
+}
+
+function addSelectedOption(selectElement, displayElement, inputElement) {
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const values = inputElement.value.split(',').filter(value => value);
+
+    if (!values.includes(selectedOption.value)) {
+        values.push(selectedOption.value);
+        inputElement.value = values.join(',');
+
+        const selectedDiv = document.createElement('div');
+        selectedDiv.className = 'selected-option';
+        selectedDiv.innerHTML = `${selectedOption.text} <button type="button" onclick="removeSelectedOption('${selectedOption.value}', '${selectElement.id}', this, '${inputElement.id}')">x</button>`;
+        displayElement.appendChild(selectedDiv);
+        selectedOption.style.display = 'none';
+    }
+
+    selectElement.selectedIndex = -1;  // Reset the select element
+}
+
+function removeSelectedOption(optionValue, selectId, buttonElement, inputId) {
+    const selectElement = document.getElementById(selectId);
+    const inputElement = document.getElementById(inputId);
+    Array.from(selectElement.options).forEach(option => {
+        if (option.value === optionValue) {
+            option.style.display = 'block';
+        }
+    });
+
+    const selectedDiv = buttonElement.parentNode;
+    selectedDiv.parentNode.removeChild(selectedDiv);
+
+    const values = inputElement.value.split(',').filter(value => value !== optionValue);
+    inputElement.value = values.join(',');
+}
+
+document.getElementById('tamanhoFraldaSelect').addEventListener('change', function() {
+    addSelectedOption(this, document.getElementById('tamanhosSelecionados'), document.getElementById('tamanhoFraldaInput'));
+});
+
+document.getElementById('tipoFraldaSelect').addEventListener('change', function() {
+    addSelectedOption(this, document.getElementById('tiposSelecionados'), document.getElementById('tipoFraldaInput'));
+});
+
+document.getElementById('funcoesSelect').addEventListener('change', function() {
+    addSelectedOption(this, document.getElementById('funcoesSelecionadas'), document.getElementById('funcoesInput'));
+});
+
+document.getElementById('funcoesSelectAutorizador').addEventListener('change', function() {
+    addSelectedOption(this, document.getElementById('funcoesSelecionadasAutorizador'), document.getElementById('funcoesInputAutorizador'));
+});
+
+document.getElementById('funcoesSelectPrefeitura').addEventListener('change', function() {
+    addSelectedOption(this, document.getElementById('funcoesSelecionadasPrefeitura'), document.getElementById('funcoesInputPrefeitura'));
+});
+
+function flashMessage(message) {
+    const flashMessageDiv = document.getElementById('mensagem-flash');
+    flashMessageDiv.style.display = 'block';
+    flashMessageDiv.querySelector('#flashzin').innerText = message;
+    setTimeout(() => {
+        flashMessageDiv.style.display = 'none';
+    }, 5000); // Adjust the time (in milliseconds) as needed
+}
+</script>
+{% endblock %}

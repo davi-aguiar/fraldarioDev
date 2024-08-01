@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Login</title>
+        <link rel="stylesheet" href="/static/css/login.css">
+        <link rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+            integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+            crossorigin="anonymous">
+        <link rel="shortcut icon" href="/static/fotos/anonimo.png"
+            type="image/x-icon">
+        <link rel="stylesheet" href="/static/css/flashmessage.css">
+        <script src="/static/js/flashtemporario.js" defer></script>
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <body>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-message" id="mensagem-flash" style="display: none;">
+            <p id="flashzin">{{ messages[0] }}</p>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="container">
+            <a class="voltar" href="/">
+                <i class="bi bi-arrow-left-short"></i>
+            </a>
+            <div class="content first-content">
+                <div class="first-column">
+                    <h2 class="title title-primary">Olá!</h2>
+                    <p class="description description-primary">Você ainda não
+                        possui cadastro?</p>
+                    <p class="description description-primary">Entre já em
+                        contato conosco</p>
+                    <button onclick="faleconosco()" id="signup"
+                        class="btn btn-primary">Fale Conosco</button>
+                </div>
+                <div class="second-column">
+                    <h2 class="title title-second">Faça seu Login</h2>
+                    <p class="description description-second">Use seu email:</p>
+                    <form action="/login" class="form" method="post">
+                        <label class="label-input" for="login">
+                            <i class="far fa-envelope icon-modify"></i>
+                            <input type="email" name="login"
+                                placeholder="Insira seu email"
+                                value="{{ username }}" required>
+                        </label>
+                        <label class="label-input" for="senha">
+                            <i class="fas fa-lock icon-modify"></i>
+                            <input type="password" name="senha"
+                                placeholder="Insira sua Senha" required>
+                        </label>
+                        <label class="checkbox-container">Lembrar de mim
+                            <input type="checkbox" id="remember"
+                                name="remember">
+                            <span class="checkmark"></span>
+                        </label>
+                        <a class="password" href="/redef">Esqueceu sua
+                            senha?</a>
+                        <button type="submit"
+                            class="btn btn-second">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="/static/js/login.js"></script>
+    </body>
+</html>
